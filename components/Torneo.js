@@ -1,5 +1,4 @@
 import React from "react";
-import Code from "./code";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
