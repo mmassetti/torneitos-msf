@@ -27,18 +27,43 @@ const getTorneoById = async (id) => {
   return torneo;
 };
 
-const createTorneo = async (tabla, ganador, resultados) => {
+const createTorneo = async (
+  equipoChaca,
+  equipoMasa,
+  equipoSeba,
+  temporada,
+  numeroTorneo
+) => {
   return await faunaClient.query(
     q.Create(q.Collection("torneos"), {
-      data: { tabla, ganador, resultados },
+      data: { equipoChaca, equipoMasa, equipoSeba, temporada, numeroTorneo },
     })
   );
 };
 
-const updateTorneo = async (id, tabla, ganador, resultados) => {
+const updateTorneo = async (
+  id,
+  tabla,
+  ganador,
+  resultados,
+  equipoChaca,
+  equipoMasa,
+  equipoSeba,
+  temporada,
+  numeroTorneo
+) => {
   return await faunaClient.query(
     q.Update(q.Ref(q.Collection("torneos"), id), {
-      data: { tabla, ganador, resultados },
+      data: {
+        tabla,
+        ganador,
+        resultados,
+        equipoChaca,
+        equipoMasa,
+        equipoSeba,
+        temporada,
+        numeroTorneo,
+      },
     })
   );
 };

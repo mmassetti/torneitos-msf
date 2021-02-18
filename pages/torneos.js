@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // components
-import CrearTorneo from "../components/CrearTorneo";
+import TorneoForm from "../components/TorneoForm";
 // layout for page
 
 import Admin from "layouts/Admin.js";
@@ -13,7 +13,7 @@ export default function Torneos() {
     <div className="flex flex-wrap">
       {!showCreateForm ? (
         <div className="w-full lg:w-4/12 px-4">
-          <div class="px-5 py-24 mx-auto">
+          <div className="px-5 py-24 mx-auto">
             <button
               onClick={() => {
                 setShowCreateForm(!showCreateForm);
@@ -29,8 +29,8 @@ export default function Torneos() {
 
       {showCreateForm ? (
         <div className="w-full lg:w-8/12 px-4">
-          <div class="px-5 py-24 mx-auto">
-            <CrearTorneo onCancel={() => setShowCreateForm(!showCreateForm)} />
+          <div className="px-5 py-24 mx-auto">
+            <TorneoForm onCancel={() => setShowCreateForm(!showCreateForm)} />
           </div>
         </div>
       ) : null}
