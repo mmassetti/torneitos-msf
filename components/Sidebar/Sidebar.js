@@ -52,12 +52,12 @@ export default function Sidebar() {
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
-                <Link href="/admin/torneos">
+                <Link href="/torneos">
                   <a
                     href="#pablo"
                     className={
                       "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/torneos") !== -1
+                      (router.pathname.indexOf("/torneos") !== -1
                         ? "text-blue-500 hover:text-blue-600"
                         : "text-gray-800 hover:text-gray-600")
                     }
@@ -65,7 +65,7 @@ export default function Sidebar() {
                     <i
                       className={
                         "fas fa-tv mr-2 text-sm " +
-                        (router.pathname.indexOf("/admin/torneos") !== -1
+                        (router.pathname.indexOf("/torneos") !== -1
                           ? "opacity-75"
                           : "text-gray-400")
                       }
@@ -76,12 +76,12 @@ export default function Sidebar() {
               </li>
 
               <li className="items-center">
-                <Link href="/admin/estadisticas">
+                <Link href="/estadisticas">
                   <a
                     href="#pablo"
                     className={
                       "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/estadisticas") !== -1
+                      (router.pathname.indexOf("/estadisticas") !== -1
                         ? "text-blue-500 hover:text-blue-600"
                         : "text-gray-800 hover:text-gray-600")
                     }
@@ -89,7 +89,7 @@ export default function Sidebar() {
                     <i
                       className={
                         "fas fa-tools mr-2 text-sm " +
-                        (router.pathname.indexOf("/admin/estadisticas") !== -1
+                        (router.pathname.indexOf("/estadisticas") !== -1
                           ? "opacity-75"
                           : "text-gray-400")
                       }

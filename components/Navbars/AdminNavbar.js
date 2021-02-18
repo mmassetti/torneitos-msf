@@ -4,9 +4,9 @@ import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
 function getCurrentPageName() {
   if (typeof window !== "undefined") {
-    if (window.location.pathname === "/admin/dashboard") {
+    if (window.location.pathname === "/torneos") {
       return "Torneos";
-    } else if (window.location.pathname === "/admin/estadisticas") {
+    } else if (window.location.pathname === "/estadisticas") {
       return "Estadísticas";
     } else {
       return "Torneitos MSF";

@@ -14,7 +14,7 @@ export default function Index() {
               </h2>
 
               <div className="mt-12">
-                <Link href="/admin/torneos">
+                <Link href="/torneos">
                   <a
                     href="#pablo"
                     className={
@@ -25,7 +25,7 @@ export default function Index() {
                   </a>
                 </Link>
 
-                <Link href="/admin/estadisticas">
+                <Link href="/estadisticas">
                   <a
                     href="#pablo"
                     className={
