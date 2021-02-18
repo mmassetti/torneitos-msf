@@ -7,22 +7,14 @@ export default function FooterAdmin() {
         <div className="container mx-auto px-4">
           <hr className="mb-4 border-b-1 border-gray-300" />
           <div className="flex flex-wrap items-center md:justify-between justify-center">
-            <div className="w-full md:w-4/12 px-4">
-              {/* <div className="text-sm text-gray-600 font-semibold py-1 text-center md:text-left">
-                Copyright © {new Date().getFullYear()}{" "}
-                <a
-                  href="https://www.creative-tim.com?ref=nnjs-footer-admin"
-                  className="text-gray-600 hover:text-gray-800 text-sm font-semibold py-1"
-                >
-                  Creative Tim
-                </a>
-              </div> */}
-            </div>
+            <div className="w-full md:w-4/12 px-4"></div>
             <div className="w-full md:w-8/12 px-4">
               <ul className="flex flex-wrap list-none md:justify-end  justify-center">
                 <li>
                   <a
-                    href="https://www.creative-tim.com?ref=nnjs-footer-admin"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://docs.google.com/spreadsheets/d/1-h8a51MRMAF7d9givY1QwoqhmS7yfF87_2K9FBCoSdQ/edit?usp=sharing"
                     className="text-gray-700 hover:text-gray-900 text-sm font-semibold block py-1 px-3"
                   >
                     Ver plantilla Excel original
@@ -30,7 +22,9 @@ export default function FooterAdmin() {
                 </li>
                 <li>
                   <a
-                    href="https://www.creative-tim.com/presentation?ref=nnjs-footer-admin"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.sortea2.com/sorteos"
                     className="text-gray-700 hover:text-gray-900 text-sm font-semibold block py-1 px-3"
                   >
                     Sortear equipos
