@@ -5,6 +5,7 @@ import TorneoForm from "../components/TorneoForm";
 // layout for page
 
 import Admin from "layouts/Admin.js";
+import TabsRender from "../components/Tabs/Tabs";
 
 export default function Torneos() {
   const [showCreateForm, setShowCreateForm] = useState(false);
@@ -34,6 +35,8 @@ export default function Torneos() {
           </div>
         </div>
       ) : null}
+
+      <TabsRender />
     </div>
   );
 }
