@@ -1,4 +1,5 @@
 import React from "react";
+import TorneosList from "../TorneosList";
 
 const Tabs = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
@@ -75,14 +76,7 @@ const Tabs = ({ color }) => {
             <div className="px-4 py-5 flex-auto">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                  <p>
-                    Collaboratively administrate empowered markets via
-                    plug-and-play networks. Dynamically procrastinate B2C users
-                    after installed base benefits.
-                    <br />
-                    <br /> Dramatically visualize customer directed convergence
-                    without revolutionary ROI.
-                  </p>
+                  <TorneosList />
                 </div>
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                   <p>
