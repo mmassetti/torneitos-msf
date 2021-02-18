@@ -1,33 +1,52 @@
-import Head from "next/head";
-import Torneo from "../components/Torneo";
-import useSWR from "swr";
+import React from "react";
 import Link from "next/link";
-export default function Home() {
-  const { data: torneos, mutate } = useSWR("/api/torneos");
-  return (
-    <div>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+import Admin from "../layouts/Admin";
 
-      <main className="">
-        <div className="my-12">
-          <h1 className="text-red-100 text-2xl">Errday Code Snippets</h1>
-          <p className="text-red-200">
-            Create and browse snippets you use every day in Web Development!
-          </p>
-          <Link href="/new">
-            <a className="mt-3 inline-block bg-red-800 hover:bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              Create a Torneo!
-            </a>
-          </Link>
+export default function Index() {
+  return (
+    <>
+      <section className="header relative pt-16 items-center flex h-screen max-h-860-px">
+        <div className="container mx-auto items-center flex flex-wrap">
+          <div className="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
+            <div className="pt-32 sm:pt-0">
+              <h2 className="font-semibold text-4xl text-gray-700">
+                Torneitos MSF
+              </h2>
+
+              <div className="mt-12">
+                <Link href="/admin/torneos">
+                  <a
+                    href="#pablo"
+                    className={
+                      "get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-gray-600 active:bg-gray-700 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                    }
+                  >
+                    Torneos
+                  </a>
+                </Link>
+
+                <Link href="/admin/estadisticas">
+                  <a
+                    href="#pablo"
+                    className={
+                      "github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-gray-800 active:bg-gray-700 uppercase text-sm shadow hover:shadow-lg"
+                    }
+                  >
+                    Estadisticas
+                  </a>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-        {torneos &&
-          torneos.map((torneo) => (
-            <Torneo key={torneo.id} torneo={torneo} torneoDeleted={mutate} />
-          ))}
-      </main>
-    </div>
+        <img
+          className="absolute top-0 b-auto right-0 pt-16 sm:w-6/12 -mt-48 sm:mt-0 w-10/12 max-h-860-px"
+          src={require("assets/img/pattern_nextjs.png")}
+          alt="..."
+        />
+      </section>
+    </>
   );
 }
+
+Index.layout = Admin;
