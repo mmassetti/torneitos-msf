@@ -30,7 +30,7 @@ export default function Torneos() {
       {showCreateForm ? (
         <div className="w-full lg:w-8/12 px-4">
           <div className="px-5 py-24 mx-auto">
-            <TorneoForm onCancel={() => setShowCreateForm(!showCreateForm)} />
+            <TorneoForm onFinished={() => setShowCreateForm(!showCreateForm)} />
           </div>
         </div>
       ) : null}

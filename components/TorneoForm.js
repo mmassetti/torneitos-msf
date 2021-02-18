@@ -20,8 +20,8 @@ const listaEquipos = [
   { value: "Tottenham", label: "Tottenham" },
 ];
 
-export default function CrearTorneo({ onCancel, torneo }) {
-  const { register, handleSubmit, errors, control, reset } = useForm({
+export default function CrearTorneo({ onFinished, torneo }) {
+  const { register, handleSubmit, errors, control } = useForm({
     defaultValues: {
       tabla: torneo ? torneo.data.tabla : "",
       ganador: torneo ? torneo.data.ganador : "",
@@ -33,35 +33,19 @@ export default function CrearTorneo({ onCancel, torneo }) {
     },
   });
 
-  const [filterConfig, setFilterConfig] = useState({
+  const [filterConfig] = useState({
     ignoreCase: true,
     ignoreAccents: true,
     trim: true,
-    matchFrom: "start",
+    matchFrom: "any",
   });
 
   const createTorneo = async (data) => {
-    console.log(
-      "🚀 ~ file: TorneoForm.js ~ line 43 ~ createTorneo ~ data",
-      data
-    );
-
-    console.log(
-      "🚀 ~ file: TorneoForm.js ~ line 25 ~ CrearTorneo ~ errors",
-      errors
-    );
-
     const equipoChaca = data.equipoChaca.value;
     const equipoMasa = data.equipoMasa.value;
     const equipoSeba = data.equipoSeba.value;
 
-    const {
-      // tabla,
-      // ganador,
-      // resultados,
-      temporada,
-      numeroTorneo,
-    } = data;
+    const { temporada, numeroTorneo } = data;
 
     try {
       await fetch("/api/createTorneo", {
@@ -77,7 +61,7 @@ export default function CrearTorneo({ onCancel, torneo }) {
           "Content-Type": "application/json",
         },
       });
-      // router.push("/");
+      onFinished();
     } catch (err) {
       console.error(err);
     }
@@ -254,8 +238,7 @@ export default function CrearTorneo({ onCancel, torneo }) {
                 Crear torneo
               </button>
               <button
-                // disabled= Si alguno no eligio equipo
-                onClick={() => onCancel()}
+                onClick={() => onFinished()}
                 className="bg-indigo-500 text-white active:bg-indigo-600 text-sm font-bold uppercase ml-2 px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1  ease-linear transition-all duration-150"
                 type="button"
               >
