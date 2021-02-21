@@ -1,51 +1,13 @@
-/* eslint-disable react/react-in-jsx-scope */
-import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import withApollo from "../utils/withApollo";
 import Torneo from "./Torneo";
+import { GET_TORNEOS_PARA_TEMPORADA } from "../graphql/queries";
 
-const GET_TORNEOS = gql`
-  {
-    allTorneos {
-      data {
-        _id
-        numeroTorneo
-        temporada {
-          _id
-        }
-        equipoMasa
-        equipoChaca
-        equipoSeba
-        ganador
-        resultados {
-          data {
-            jugador1
-            jugador2
-            golesJugador1
-            golesJugador2
-            numeroEnfrentamiento
-          }
-        }
-        tablas {
-          data {
-            jugador
-            puntos
-            pj
-            pg
-            pe
-            pp
-            gf
-            gc
-          }
-        }
-      }
-    }
-  }
-`;
+function TorneosList({ nombreTemporada }) {
+  const { data, loading, error } = useQuery(GET_TORNEOS_PARA_TEMPORADA, {
+    variables: { nombre: nombreTemporada },
+  });
 
-function TorneosList() {
-  const { data, loading, error } = useQuery(GET_TORNEOS);
-  console.log("🚀 ~ file: TorneosList.js ~ line 46 ~ TorneosList ~ data", data);
   if (loading) {
     return "Loading...";
   }
@@ -54,13 +16,22 @@ function TorneosList() {
   }
 
   if (data) {
-    return (
-      <ul>
-        {data.allTorneos.data.map((torneo) => {
-          return <Torneo key={torneo._id} torneoData={torneo} />;
-        })}
-      </ul>
-    );
+    let torneos = data.temporadaByName.torneos.data;
+    if (torneos.length > 0) {
+      return (
+        <ul>
+          {data.temporadaByName.torneos.data.map((torneo) => {
+            return <Torneo key={torneo._id} torneoData={torneo} />;
+          })}
+        </ul>
+      );
+    } else {
+      return (
+        <h3 className="text-center font-semibold text-2xl h-screen mt-8">
+          Esta temporada todavía no tiene torneos
+        </h3>
+      );
+    }
   } else {
     return <p> Se rompió algo</p>;
   }

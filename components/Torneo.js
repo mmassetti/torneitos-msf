@@ -37,7 +37,6 @@ export default function Torneo({ torneoData }) {
         </div>{" "}
         <hr className="mt-6 border-b-1 border-gray-400" />
       </div>
-      <div>el resto de los torneos va aca...</div>
     </>
   );
 }
