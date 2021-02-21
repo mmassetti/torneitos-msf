@@ -36,9 +36,9 @@ type Torneo {
   equipoChaca: String!
   equipoMasa: String!
   equipoSeba: String!
-  tablas: [EstadisticaTabla!] @relation
+  tablas: [EstadisticaTabla] @relation
   ganador: String
-  resultados: [Enfrentamiento!] @relation
+  resultados: [Enfrentamiento] @relation
 }
 
 type Query {

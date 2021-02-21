@@ -59,6 +59,7 @@ const Tabs = () => {
                     <div
                       className={openTab === index + 1 ? "block" : "hidden"}
                       id={`#link${index + 1}`}
+                      key={temporada._id}
                     >
                       <TorneosList nombreTemporada={temporada.nombre} />
                     </div>
