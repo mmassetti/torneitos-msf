@@ -1,24 +1,7 @@
 import React, { useState } from "react";
 import Select, { createFilter } from "react-select";
 import { useForm, Controller } from "react-hook-form";
-
-const listaEquipos = [
-  { value: "Ajax", label: "Ajax" },
-  { value: "Arsenal", label: "Arsenal" },
-  { value: "Atlético madrid", label: "Atlético Madrid" },
-  { value: "Barcelona", label: "Barcelona" },
-  { value: "Bayern Munich", label: "Bayern Munich" },
-  { value: "Borussia Dortmund", label: "Borussia Dortmund" },
-  { value: "Chelsea", label: "Chelsea" },
-  { value: "Inter", label: "Inter" },
-  { value: "Juventus", label: "Juventus" },
-  { value: "Liverpool", label: "Liverpool" },
-  { value: "Manchester City", label: "Manchester City" },
-  { value: "Manchester United", label: "Manchester United" },
-  { value: "PSG", label: "PSG" },
-  { value: "Real Madrid", label: "Real Madrid" },
-  { value: "Tottenham", label: "Tottenham" },
-];
+import getlistaEquipos from "../utils/constants";
 
 export default function CrearTorneo({ onFinished, torneo }) {
   const { register, handleSubmit, errors, control } = useForm({
@@ -92,6 +75,8 @@ export default function CrearTorneo({ onFinished, torneo }) {
           <div className="text-center flex justify-between">
             <h6 className="text-gray-800 text-xl font-bold">Nuevo torneo</h6>
             <button
+              //TODO: Sorteo de equipos
+              onClick={() => alert("Lo tengo que hacer todavia esto...")}
               className="bg-green-500 active:bg-gray-700 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
               type="button"
             >
@@ -159,7 +144,7 @@ export default function CrearTorneo({ onFinished, torneo }) {
                   <Controller
                     name="equipoChaca"
                     control={control}
-                    options={listaEquipos}
+                    options={getlistaEquipos()}
                     placeholder="Elegir equipo"
                     isClearable
                     isSearchable
@@ -186,7 +171,7 @@ export default function CrearTorneo({ onFinished, torneo }) {
                   <Controller
                     name="equipoMasa"
                     control={control}
-                    options={listaEquipos}
+                    options={getlistaEquipos()}
                     placeholder="Elegir equipo"
                     isClearable
                     isSearchable
@@ -213,7 +198,7 @@ export default function CrearTorneo({ onFinished, torneo }) {
                   <Controller
                     name="equipoSeba"
                     control={control}
-                    options={listaEquipos}
+                    options={getlistaEquipos()}
                     placeholder="Elegir equipo"
                     isClearable
                     isSearchable

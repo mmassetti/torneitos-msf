@@ -64,7 +64,7 @@ export default function Sidebar() {
                   >
                     <i
                       className={
-                        "fas fa-tv mr-2 text-sm " +
+                        "fas fa-trophy mr-2 text-sm " +
                         (router.pathname.indexOf("/torneos") !== -1
                           ? "opacity-75"
                           : "text-gray-400")
@@ -88,7 +88,7 @@ export default function Sidebar() {
                   >
                     <i
                       className={
-                        "fas fa-tools mr-2 text-sm " +
+                        "fas fa-chart-bar mr-2 text-sm " +
                         (router.pathname.indexOf("/estadisticas") !== -1
                           ? "opacity-75"
                           : "text-gray-400")

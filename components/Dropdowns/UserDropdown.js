@@ -27,16 +27,48 @@ const UserDropdown = () => {
         }}
       >
         <div className="items-center flex">
-          <span className="w-12 h-12 text-sm text-white bg-gray-300 inline-flex items-center justify-center rounded-full">
+          <h3 className="text-white ">
+            Usuario <span className="font-bold">INVITADO</span>
+          </h3>
+
+          <span className="w-12 h-12 text-sm text-white bg-gray-300 inline-flex items-center justify-center rounded-full ml-2">
             <img
               alt="..."
               className="w-full rounded-full align-middle border-none shadow-lg"
-              src={require("assets/img/team-1-800x800.jpg")}
+              src={require("assets/img/guest-user.png")}
             />
           </span>
         </div>
+        {/* <div className="items-center flex">
+          <h3 className="text-white ">Usuario ADMIN</h3>
+
+          <span className="w-12 h-12 text-sm text-white bg-gray-300 inline-flex items-center justify-center rounded-full ml-2">
+            <img
+              alt="..."
+              className="w-full rounded-full align-middle border-none shadow-lg"
+              src={require("assets/img/admin-user2.png")}
+            />
+          </span>
+        </div> */}
       </a>
       <div
+        ref={popoverDropdownRef}
+        className={
+          (dropdownPopoverShow ? "block " : "hidden ") +
+          "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
+        }
+      >
+        <a
+          href="#pablo"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent text-gray-800"
+          }
+          onClick={(e) => alert("Tengo que hacerlo el login todavia")}
+        >
+          Iniciar sesión
+        </a>
+      </div>
+      {/* <div
         ref={popoverDropdownRef}
         className={
           (dropdownPopoverShow ? "block " : "hidden ") +
@@ -52,7 +84,7 @@ const UserDropdown = () => {
         >
           Cerrar sesión
         </a>
-      </div>
+      </div> */}
     </>
   );
 };

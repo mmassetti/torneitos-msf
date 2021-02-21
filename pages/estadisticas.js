@@ -1,20 +1,13 @@
 import React from "react";
 
-// components
-
-// layout for page
-
 import Admin from "layouts/Admin.js";
 
-export default function Settings() {
+export default function Estadisticas() {
   return (
     <>
-      <div className="flex flex-wrap">
-        <div className="w-full lg:w-8/12 px-4"></div>
-        <div className="w-full lg:w-4/12 px-4"></div>
-      </div>
+      <h1 className="mt-20">Pagina sin hacer todavia...</h1>
     </>
   );
 }
 
-Settings.layout = Admin;
+Estadisticas.layout = Admin;

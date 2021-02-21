@@ -28,7 +28,7 @@ const Tabs = ({ color }) => {
                 href="#link1"
                 role="tablist"
               >
-                Profile
+                2018/2019
               </a>
             </li>
             <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -47,7 +47,7 @@ const Tabs = ({ color }) => {
                 href="#link2"
                 role="tablist"
               >
-                Settings
+                2019/2020
               </a>
             </li>
             <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -66,39 +66,26 @@ const Tabs = ({ color }) => {
                 href="#link3"
                 role="tablist"
               >
-                Options
+                2021
               </a>
             </li>
           </ul>
 
           {/* Tabs content */}
           <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-            <div className="px-4 py-5 flex-auto">
+            <div className="flex-auto">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                   <TorneosList />
                 </div>
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                  <p>
-                    Completely synergize resource taxing relationships via
-                    premier niche markets. Professionally cultivate one-to-one
-                    customer service with robust ideas.
-                    <br />
-                    <br />
-                    Dynamically innovate resource-leveling customer service for
-                    state of the art customer service.
-                  </p>
+                  {/* //TODO: Torneo 2019/2020 (dynamic behavior from DB) */}
+                  Aca va a ir lo de 2019/2020
                 </div>
                 <div className={openTab === 3 ? "block" : "hidden"} id="link3">
-                  <p>
-                    Efficiently unleash cross-media information without
-                    cross-media value. Quickly maximize timely deliverables for
-                    real-time schemas.
-                    <br />
-                    <br /> Dramatically maintain clicks-and-mortar solutions
-                    without functional solutions.
-                  </p>
+                  Aca va a ir lo de 2021
                 </div>
+                {/* //TODO: Torneo 2021 (dynamic behavior from DB) */}
               </div>
             </div>
           </div>
@@ -109,9 +96,5 @@ const Tabs = ({ color }) => {
 };
 
 export default function TabsRender() {
-  return (
-    <>
-      return <Tabs color="blue" />
-    </>
-  );
+  return <Tabs color="blue" />;
 }
