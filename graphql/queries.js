@@ -11,6 +11,20 @@ export const GET_TEMPORADAS = gql`
   }
 `;
 
+export const GET_NUMERO_TORNEOS_TEMPORADA = gql`
+  query GetTorneosParaTemporada($nombre: String!) {
+    temporadaByName(nombre: $nombre) {
+      nombre
+      torneos {
+        data {
+          _id
+          numeroTorneo
+        }
+      }
+    }
+  }
+`;
+
 export const GET_TORNEOS_PARA_TEMPORADA = gql`
   query GetTorneosParaTemporada($nombre: String!) {
     temporadaByName(nombre: $nombre) {

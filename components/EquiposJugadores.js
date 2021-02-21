@@ -2,8 +2,8 @@ const getEscudo = (nombreEquipo) => {
   return (
     <img
       src={require(`assets/img/logos-equipos/${nombreEquipo}.png`)}
-      className="h-12 w-12 rounded-lg h-24 w-24  "
-      alt="..."
+      className="h-12 w-12"
+      alt="Hubo un error al cargar el escudo"
     ></img>
   );
 };
@@ -15,19 +15,11 @@ export default function EquiposJugadores({ torneoData }) {
     <div className="flex">
       <div className="flex-1 p-2">
         <label class="block text-sm font-medium text-gray-700 p-2">Chaca</label>
-        <div class="mt-1 flex items-center">
-          <span class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-            {getEscudo(equipoChaca)}
-          </span>
-        </div>
+        <div class="mt-1 flex items-center">{getEscudo(equipoChaca)}</div>
       </div>
       <div className="flex-1 p-2">
         <label class="block text-sm font-medium text-gray-700 p-2">Masa</label>
-        <div class="mt-1 flex items-center">
-          <span class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-            {getEscudo(equipoMasa)}
-          </span>
-        </div>
+        <div class="mt-1 flex items-center">{getEscudo(equipoMasa)}</div>
       </div>
       <div className="flex-1 p-2">
         <label class="block text-sm font-medium text-gray-700 p-2">Seba</label>
