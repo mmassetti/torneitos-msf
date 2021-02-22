@@ -17,6 +17,14 @@ class MyDocument extends Document {
             sizes="76x76"
             href={require("assets/img/brand/apple-icon.png")}
           />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
+          />
+          <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+          />
         </Head>
         <body className="text-gray-800 antialiased">
           <div id="page-transition"></div>
