@@ -1,13 +1,11 @@
 import React from "react";
-
-import Admin from "layouts/Admin.js";
+import IndexNavbar from "../components/Navbars/IndexNavbar.js";
 
 export default function Estadisticas() {
   return (
     <>
+      <IndexNavbar />
       <h1 className="mt-20">Pagina sin hacer todavia...</h1>
     </>
   );
 }
-
-Estadisticas.layout = Admin;

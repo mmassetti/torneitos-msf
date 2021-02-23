@@ -94,7 +94,7 @@ export default function Sidebar() {
                           : "text-gray-400")
                       }
                     ></i>{" "}
-                    Estadísticas
+                    Estadisticas
                   </a>
                 </Link>
               </li>

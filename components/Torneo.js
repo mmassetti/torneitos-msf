@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import EquiposJugadores from "./EquiposJugadores";
 import TorneoPuntajes from "./TorneoPuntajes";
 
@@ -14,9 +15,12 @@ export default function Torneo({ torneoData }) {
           </span>
         </h3>
         <div className="flex flex-row-reverse px-4 mx-auto">
-          <div className="w-full overflow-auto bg-gray-500">
-            <div className="content flex flex-row flex-no-wrap items-start justify-start m-2">
-              <div className="item bg-white m-2 w-64">
+          <div className="w-full overflow-auto bg-gray-500 ">
+            <div className="content flex flex-row flex-no-wrap items-start justify-center m-2">
+              <div
+                className="item bg-white  w-64"
+                style={{ marginTop: "-2.2rem" }}
+              >
                 <div className="p-4">
                   <TorneoResultados torneoData={torneoData} />
                 </div>
@@ -28,7 +32,7 @@ export default function Torneo({ torneoData }) {
               </div>
 
               <div className="item bg-white m-2 w-64">
-                <div className="p-4">
+                <div className="p-4 mt-4">
                   <TorneoPuntajes torneoData={torneoData} />
                 </div>
               </div>

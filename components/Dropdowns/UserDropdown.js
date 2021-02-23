@@ -27,7 +27,7 @@ const UserDropdown = () => {
         }}
       >
         <div className="items-center flex">
-          <h3 className="text-white ">
+          <h3 className="text-yellow-400">
             Usuario <span className="font-bold">INVITADO</span>
           </h3>
 
@@ -40,7 +40,7 @@ const UserDropdown = () => {
           </span>
         </div>
         {/* <div className="items-center flex">
-          <h3 className="text-white ">Usuario ADMIN</h3>
+          <h3 className="text-yellow-400">Usuario ADMIN</h3>
 
           <span className="w-12 h-12 text-sm text-white bg-gray-300 inline-flex items-center justify-center rounded-full ml-2">
             <img

@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useQuery } from "@apollo/react-hooks";
 import withApollo from "../utils/withApollo";
 import Torneo from "./Torneo";
@@ -9,7 +10,7 @@ function TorneosList({ nombreTemporada }) {
   });
 
   if (loading) {
-    return "Loading...";
+    return "Cargando...";
   }
   if (error) {
     console.log("ERROR: ", error);

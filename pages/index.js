@@ -1,10 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import Admin from "../layouts/Admin";
+import IndexNavbar from "components/Navbars/IndexNavbar.js";
 
 export default function Index() {
   return (
     <>
+      <IndexNavbar />
+
       <section className="header relative pt-16 items-center flex h-screen max-h-860-px">
         <div className="container mx-auto items-center flex flex-wrap">
           <div className="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
@@ -48,5 +50,3 @@ export default function Index() {
     </>
   );
 }
-
-Index.layout = Admin;

@@ -25,7 +25,7 @@ function CrearTorneo({ onFinished, torneo }) {
   });
 
   if (loading || getNumeroTorneosTemporadaLoading) {
-    return "Loading...";
+    return "Cargando...";
   }
   if (error || getNumeroTorneosTemporadaError) {
     console.log("ERROR: ", error);

@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 
-// components
 import TorneoForm from "../components/TorneoForm";
-// layout for page
-
-import Admin from "layouts/Admin.js";
 import TabsRender from "../components/Tabs/Tabs";
+import IndexNavbar from "../components/Navbars/IndexNavbar.js";
 
 export default function Torneos() {
   const [showCreateForm, setShowCreateForm] = useState(false);
 
   return (
     <>
+      <IndexNavbar />
+
       <div className="flex flex-wrap">
         {!showCreateForm ? (
           <div className="w-full lg:w-4/12 px-4">
@@ -43,5 +42,3 @@ export default function Torneos() {
     </>
   );
 }
-
-Torneos.layout = Admin;

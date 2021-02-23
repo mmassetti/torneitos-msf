@@ -2925,6 +2925,16 @@ video {
   color: rgba(49, 130, 206, var(--text-opacity));
 }
 
+.hover\:text-yellow-400:hover {
+  --text-opacity: 1;
+  color: #fbbf24;
+}
+
+.hover\:text-green-500:hover {
+  --text-opacity: 1;
+  color: #48bb78;
+}
+
 .italic {
   font-style: italic;
 }

@@ -1,5 +1,5 @@
 export const optionsConfig = {
-  //   showTitle: false,
+  showTitle: false,
   sorting: false,
   draggable: false,
   search: false,

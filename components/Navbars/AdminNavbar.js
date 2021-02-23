@@ -7,7 +7,7 @@ function getCurrentPageName() {
     if (window.location.pathname === "/torneos") {
       return "Torneos";
     } else if (window.location.pathname === "/estadisticas") {
-      return "Estadísticas";
+      return "Estadisticas";
     } else {
       return "Torneitos MSF";
     }

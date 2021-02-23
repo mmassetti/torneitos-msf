@@ -1,16 +1,18 @@
+/* eslint-disable react/react-in-jsx-scope */
+import { useState } from "react";
 import TorneosList from "../TorneosList";
 import { useQuery } from "@apollo/react-hooks";
 import withApollo from "../../utils/withApollo";
 import { GET_TEMPORADAS } from "../../graphql/queries";
 
 const Tabs = () => {
-  const [openTab, setOpenTab] = React.useState(1);
+  const [openTab, setOpenTab] = useState(1);
 
   const { data, loading, error } = useQuery(GET_TEMPORADAS, {
     variables: { nombre: "2018/2019" },
   });
   if (loading) {
-    return "Loading...";
+    return "Cargando...";
   }
   if (error) {
     console.log("ERROR: ", error);
@@ -19,7 +21,7 @@ const Tabs = () => {
   return (
     <>
       <div className="flex flex-wrap">
-        <div className="w-full">
+        <div className="w-full px-4">
           {/* Tabs headers */}
           <ul
             className="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row"
