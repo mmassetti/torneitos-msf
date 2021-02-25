@@ -38,8 +38,8 @@ export default function TorneoResultados({ torneoData }) {
 
   const [columns] = useState([
     { title: "Local", field: "local", editable: "never" },
-    { title: "", field: "golesLocal", type: "numeric" },
-    { title: "", field: "golesVisitante", type: "numeric" },
+    { title: "", field: "golesLocal" },
+    { title: "", field: "golesVisitante" },
     {
       title: "Visitante",
       field: "visitante",
@@ -52,9 +52,9 @@ export default function TorneoResultados({ torneoData }) {
   torneoData.resultados.data.map((resultado) => {
     resultadosArray.push({
       local: resultado.jugador1,
-      golesLocal: resultado.golesJugador1,
+      golesLocal: resultado.golesJugador1 ? resultado.golesJugador1 : "-",
       visitante: resultado.jugador2,
-      golesVisitante: resultado.golesJugador2,
+      golesVisitante: resultado.golesJugador2 ? resultado.golesJugador2 : "-",
     });
   });
 

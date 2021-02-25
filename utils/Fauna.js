@@ -31,12 +31,20 @@ const createTorneo = async (
   equipoChaca,
   equipoMasa,
   equipoSeba,
-  temporada,
+  temporadaName,
   numeroTorneo
 ) => {
+  let temporadaObject = { connect: ["290888197641077252"] };
+
   return await faunaClient.query(
     q.Create(q.Collection("torneos"), {
-      data: { equipoChaca, equipoMasa, equipoSeba, temporada, numeroTorneo },
+      data: {
+        numeroTorneo,
+        equipoChaca,
+        equipoMasa,
+        equipoSeba,
+        temporadaObject,
+      },
     })
   );
 };

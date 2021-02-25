@@ -78,19 +78,19 @@ function CrearTorneo({ onFinished, torneo }) {
         temporada,
         numeroTorneo
       );
-      // await fetch("/api/createTorneo", {
-      //   method: "POST",
-      //   body: JSON.stringify({
-      //     equipoChaca,
-      //     equipoMasa,
-      //     equipoSeba,
-      //     temporada,
-      //     numeroTorneo,
-      //   }),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // });
+      await fetch("/api/createTorneo", {
+        method: "POST",
+        body: JSON.stringify({
+          equipoChaca,
+          equipoMasa,
+          equipoSeba,
+          temporada,
+          numeroTorneo,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       onFinished();
     } catch (err) {
       console.error(err);

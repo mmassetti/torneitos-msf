@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import TorneoGanador from "./TorneoGanador";
 
 const capitalize = (s) => {
@@ -81,25 +82,25 @@ export default function TorneoPuntajes({ torneoData }) {
                   {capitalize(jugador)}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 ">
-                  {tabla.puntos}
+                  {tabla.puntos ? tabla.puntos : "-"}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 ">
-                  {tabla.pj}
+                  {tabla.pj ? tabla.pj : "-"}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4   ">
-                  {tabla.pg}
+                  {tabla.pg ? tabla.pg : "-"}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4   ">
-                  {tabla.pe}
+                  {tabla.pe ? tabla.pe : "-"}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4   ">
-                  {tabla.pp}
+                  {tabla.pp ? tabla.pp : "-"}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4   ">
-                  {tabla.gf}
+                  {tabla.gf ? tabla.gf : "-"}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4   ">
-                  {tabla.gc}
+                  {tabla.gc ? tabla.gc : "-"}
                 </td>
               </tr>
             );

@@ -8,9 +8,7 @@ import { GET_TEMPORADAS } from "../../graphql/queries";
 const Tabs = () => {
   const [openTab, setOpenTab] = useState(1);
 
-  const { data, loading, error } = useQuery(GET_TEMPORADAS, {
-    variables: { nombre: "2018/2019" },
-  });
+  const { data, loading, error } = useQuery(GET_TEMPORADAS);
   if (loading) {
     return "Cargando...";
   }

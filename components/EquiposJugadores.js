@@ -9,21 +9,26 @@ const getEscudo = (nombreEquipo) => {
 };
 
 export default function EquiposJugadores({ torneoData }) {
-  const jugadores = ["Chaca", "Masa", "Seba"];
   const { equipoChaca, equipoMasa, equipoSeba } = torneoData;
   return (
     <div className="flex">
       <div className="flex-1 p-2">
-        <label class="block text-sm font-medium text-gray-700 p-2">Chaca</label>
-        <div class="mt-1 flex items-center">{getEscudo(equipoChaca)}</div>
+        <label className="block text-sm font-medium text-gray-700 p-2">
+          Chaca
+        </label>
+        <div className="mt-1 flex items-center">{getEscudo(equipoChaca)}</div>
       </div>
       <div className="flex-1 p-2">
-        <label class="block text-sm font-medium text-gray-700 p-2">Masa</label>
-        <div class="mt-1 flex items-center">{getEscudo(equipoMasa)}</div>
+        <label className="block text-sm font-medium text-gray-700 p-2">
+          Masa
+        </label>
+        <div className="mt-1 flex items-center">{getEscudo(equipoMasa)}</div>
       </div>
       <div className="flex-1 p-2">
-        <label class="block text-sm font-medium text-gray-700 p-2">Seba</label>
-        <div class="mt-1 flex items-center">{getEscudo(equipoSeba)}</div>
+        <label className="block text-sm font-medium text-gray-700 p-2">
+          Seba
+        </label>
+        <div className="mt-1 flex items-center">{getEscudo(equipoSeba)}</div>
       </div>
     </div>
   );

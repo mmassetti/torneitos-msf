@@ -16,10 +16,10 @@ export default function Navbar(props) {
                 href="#pablo"
                 className="hover:text-yellow-400 text-orange-500 px-3 py-4 lg:py-2 flex items-center text-md uppercase font-bold"
               >
-                <div class="flex-shrink-0">
+                <div className="flex-shrink-0">
                   Torneitos MSF
                   {/* <img
-                    class="h-10 w-10"
+                    clasNames="h-10 w-10"
                     src={require("assets/img/msf.png")}
                     alt="Workflow"
                   /> */}
@@ -41,12 +41,7 @@ export default function Navbar(props) {
                   className="hover:text-yellow-400 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                 >
                   <i
-                    className={
-                      "fas fa-trophy mr-2 text-sm  text-yellow-400"
-                      // (router.pathname.indexOf("/torneos") !== -1
-                      //   ? ""
-                      //   : "text-gray-400")
-                    }
+                    className={"fas fa-trophy mr-2 text-sm  text-yellow-400"}
                   ></i>{" "}
                   Torneos
                 </a>

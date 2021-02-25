@@ -1,5 +1,10 @@
+/* eslint-disable react/react-in-jsx-scope */
 const getSecondAndThirdPositions = (tablaResultados) => {
-  return tablaResultados.sort((a, b) => (b.puntos > a.puntos ? 1 : -1));
+  if (tablaResultados[0].puntos == null) {
+    return [{ jugador: "-" }, { jugador: "-" }, { jugador: "-" }];
+  } else {
+    return tablaResultados.sort((a, b) => (b.puntos > a.puntos ? 1 : -1));
+  }
 };
 
 const capitalize = (s) => {
@@ -28,7 +33,7 @@ export default function TorneoGanador({ torneoData }) {
         </div>
         <div className="text-center mt-2">
           <h3 className="text-yellow-400 text-xl font-bold leading-normal mb-2">
-            {torneoData.ganador}
+            {torneoData.ganador ? torneoData.ganador : "-"}
           </h3>
 
           <div className="mb-2 text-white mt-5">
