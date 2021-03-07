@@ -47,6 +47,44 @@ export const CREATE_ENFRENTAMIENTO = gql`
         jugador1: $jugador1
         jugador2: $jugador2
         numeroEnfrentamiento: $numeroEnfrentamiento
+        anotadosGolesJugador1: false
+        anotadosGolesJugador2: false
+      }
+    ) {
+      _id
+    }
+  }
+`;
+
+export const UPDATE_ENFRENTAMIENTO_JUGADOR1 = gql`
+  mutation UpdateEnfrentamiento(
+    $id: ID!
+    $golesJugador1: Int!
+    $anotadosGolesJugador1: Boolean!
+  ) {
+    updateEnfrentamiento(
+      id: $id
+      data: {
+        golesJugador1: $golesJugador1
+        anotadosGolesJugador1: $anotadosGolesJugador1
+      }
+    ) {
+      _id
+    }
+  }
+`;
+
+export const UPDATE_ENFRENTAMIENTO_JUGADOR2 = gql`
+  mutation UpdateEnfrentamiento(
+    $id: ID!
+    $golesJugador2: Int!
+    $anotadosGolesJugador2: Boolean!
+  ) {
+    updateEnfrentamiento(
+      id: $id
+      data: {
+        golesJugador2: $golesJugador2
+        anotadosGolesJugador2: $anotadosGolesJugador2
       }
     ) {
       _id

@@ -22,12 +22,14 @@ enum Jugador {
 }
 
 type Enfrentamiento {
-  numeroEnfrentamiento: Int!
-  jugador1: Jugador!
-  jugador2: Jugador!
+  numeroEnfrentamiento: Int
+  jugador1: Jugador
+  jugador2: Jugador
   golesJugador1: Int
   golesJugador2: Int
-  torneo: Torneo!
+  torneo: Torneo
+  anotadosGolesJugador1: Boolean
+  anotadosGolesJugador2: Boolean
 }
 
 type Torneo {

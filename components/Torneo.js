@@ -5,6 +5,42 @@ import TorneoPuntajes from "./TorneoPuntajes";
 import TorneoResultados from "./TorneoResultados";
 
 export default function Torneo({ torneoData }) {
+  function onUpdate(esLocal, numeroEnfrentamiento, goles, nombreJugador) {
+    console.log(
+      "🚀 ~ file: Torneo.js ~ line 8 ~ Torneo ~ torneoData ",
+      torneoData
+    );
+    let tablaToUpdate = torneoData.tablas.data.filter(
+      (tabla) => tabla.jugador == nombreJugador
+    );
+
+    let enfrentamiento = torneoData.resultados.data[numeroEnfrentamiento - 1];
+    console.log(
+      "🚀 ~ file: Torneo.js ~ line 18 ~ onUpdate ~ enfrentamiento",
+      enfrentamiento
+    );
+    let shouldUpdatePuntajes = false;
+
+    if (esLocal) {
+      if (enfrentamiento.anotadosGolesJugador2) {
+        shouldUpdatePuntajes = true;
+      }
+    } else {
+      if (enfrentamiento.anotadosGolesJugador1) {
+        shouldUpdatePuntajes = true;
+      }
+    }
+
+    if (shouldUpdatePuntajes) {
+      alert("Actualizar porque ya estan los 2 cargados!");
+    }
+
+    // console.log(
+    //   "🚀 ~ file: Torneo.js ~ line 17 ~ onUpdate ~ tablaToUpdate",
+    //   tablaToUpdate
+    // );
+  }
+
   return (
     <>
       <div className="divide-y-4 divide-yellow-600 divide-dashed">
@@ -22,7 +58,10 @@ export default function Torneo({ torneoData }) {
                 style={{ marginTop: "-2.2rem" }}
               >
                 <div className="p-4">
-                  <TorneoResultados torneoData={torneoData} />
+                  <TorneoResultados
+                    torneoData={torneoData}
+                    onUpdate={onUpdate}
+                  />
                 </div>
               </div>
               <div className="item bg-white m-2 w-64">
