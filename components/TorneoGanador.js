@@ -13,9 +13,12 @@ const capitalize = (s) => {
 };
 
 export default function TorneoGanador({ torneoData }) {
-  let secondAndThirdPositions = getSecondAndThirdPositions(
-    torneoData.tablas.data
-  );
+  let secondAndThirdPositions;
+  if (torneoData.tablas.data.length > 0) {
+    secondAndThirdPositions = getSecondAndThirdPositions(
+      torneoData.tablas.data
+    );
+  }
 
   return (
     <div className="relative flex flex-col min-w-0 break-words bg-gray-900 w-full mb-6 shadow-xl rounded-lg mt-4">
@@ -38,11 +41,15 @@ export default function TorneoGanador({ torneoData }) {
 
           <div className="mb-2 text-white mt-5">
             <span className="font-bold">Segundo puesto:</span>{" "}
-            {capitalize(secondAndThirdPositions[1]?.jugador)}
+            {torneoData.ganador
+              ? capitalize(secondAndThirdPositions[1]?.jugador)
+              : "-"}
           </div>
           <div className="mb-2 text-white ">
             <span className="font-bold">Tercer puesto:</span>{" "}
-            {capitalize(secondAndThirdPositions[2]?.jugador)}
+            {torneoData.ganador
+              ? capitalize(secondAndThirdPositions[2]?.jugador)
+              : "-"}
           </div>
         </div>
       </div>

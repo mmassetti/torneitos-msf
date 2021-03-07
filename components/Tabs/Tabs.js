@@ -1,25 +1,16 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useState } from "react";
 import TorneosList from "../TorneosList";
-import { useQuery } from "@apollo/react-hooks";
-import withApollo from "../../utils/withApollo";
-import { GET_TEMPORADAS } from "../../graphql/queries";
 import useSWR from "swr";
+import { graphQLClient } from "../../utils/grahpql-client";
+import { GET_TEMPORADAS } from "../../graphql/queries";
 
-const fetcher = (url) => fetch(url).then((r) => r.json());
+const fetcher = async (query) => await graphQLClient.request(query);
 
 const Tabs = () => {
   const [openTab, setOpenTab] = useState(1);
 
-  // const { data, loading, error } = useQuery(GET_TEMPORADAS);
-  // if (loading) {
-  //   return "Cargando...";
-  // }
-  // if (error) {
-  //   console.log("ERROR: ", error);
-  // }
-
-  const { data, loading, error } = useSWR("/api/temporadas", fetcher);
+  const { data, loading, error } = useSWR(GET_TEMPORADAS, fetcher);
 
   if (loading) {
     return "Cargando...";
@@ -39,11 +30,11 @@ const Tabs = () => {
             role="tablist"
           >
             {data &&
-              data.map((temporada, index) => {
+              data.allTemporadas.data.map((temporada, index) => {
                 return (
                   <li
                     className="-mb-px mr-2 last:mr-0 flex-auto text-center"
-                    key={temporada.ref["@ref"].id}
+                    key={temporada._id}
                   >
                     <a
                       className={
@@ -60,7 +51,7 @@ const Tabs = () => {
                       href={`#link${index + 1}`}
                       role="tablist"
                     >
-                      {temporada.data.nombre}
+                      {temporada.nombre}
                     </a>
                   </li>
                 );
@@ -71,14 +62,14 @@ const Tabs = () => {
             <div className="flex-auto">
               <div className="tab-content tab-space">
                 {data &&
-                  data.map((temporada, index) => {
+                  data.allTemporadas.data.map((temporada, index) => {
                     return (
                       <div
                         className={openTab === index + 1 ? "block" : "hidden"}
                         id={`#link${index + 1}`}
-                        key={temporada.ref["@ref"].id}
+                        key={temporada._id}
                       >
-                        <TorneosList idTemporada={temporada.ref["@ref"].id} />
+                        <TorneosList nombreTemporada={temporada.nombre} />
                       </div>
                     );
                   })}
@@ -91,4 +82,4 @@ const Tabs = () => {
   );
 };
 
-export default withApollo(Tabs);
+export default Tabs;

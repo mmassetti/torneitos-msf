@@ -2,33 +2,49 @@ import React, { useEffect, useState } from "react";
 import Select, { createFilter } from "react-select";
 import { useForm, Controller } from "react-hook-form";
 import getlistaEquipos from "../utils/constants";
-import { useQuery } from "@apollo/react-hooks";
-import withApollo from "../utils/withApollo";
 import {
   GET_TEMPORADAS,
   GET_NUMERO_TORNEOS_TEMPORADA,
 } from "../graphql/queries";
+import { graphQLClient } from "../utils/grahpql-client";
+import useSWR from "swr";
+import {
+  CREATE_ENFRENTAMIENTO,
+  CREATE_ESTADISTICA_TABLA,
+  CREATE_TORNEO,
+} from "../graphql/mutations";
 
 const getSortedTemporadas = (temporadas) => {
   return temporadas.sort((a, b) => (b.nombre > a.nombre ? 1 : -1));
 };
 
+const fetcher = async (query) => await graphQLClient.request(query);
+
 function CrearTorneo({ onFinished, torneo }) {
-  const { data, loading, error } = useQuery(GET_TEMPORADAS);
+  const [cantidadTorneos, setCantidadTorneos] = useState("");
 
-  const {
-    data: getNumeroTorneosTemporada,
-    loading: getNumeroTorneosTemporadaLoading,
-    error: getNumeroTorneosTemporadaError,
-  } = useQuery(GET_NUMERO_TORNEOS_TEMPORADA, {
-    variables: { nombre: "2018/2019" },
-  });
+  useEffect(() => {
+    async function getNumeroTorneosTemporada() {
+      const torneosParaTemporada = await graphQLClient.request(
+        GET_NUMERO_TORNEOS_TEMPORADA,
+        { nombre: "2018/2019" }
+      );
 
-  if (loading || getNumeroTorneosTemporadaLoading) {
+      setCantidadTorneos(
+        torneosParaTemporada.temporadaByName.torneos.data.length
+      );
+    }
+
+    getNumeroTorneosTemporada();
+  }, [torneo]);
+
+  const { data, loading, error } = useSWR(GET_TEMPORADAS, fetcher);
+
+  if (loading) {
     return "Cargando...";
   }
-  if (error || getNumeroTorneosTemporadaError) {
-    console.log("ERROR: ", error);
+  if (error) {
+    console.log("ERROR TorneoForm: ", error);
   }
 
   let temporadas = data.allTemporadas.data;
@@ -38,8 +54,7 @@ function CrearTorneo({ onFinished, torneo }) {
     return { value: temporada.nombre, label: temporada.nombre };
   });
 
-  let numeroTorneo =
-    getNumeroTorneosTemporada.temporadaByName.torneos.data.length + 1;
+  let numeroTorneo = cantidadTorneos + 1;
 
   const { register, handleSubmit, errors, control } = useForm({
     // defaultValues: {
@@ -62,38 +77,89 @@ function CrearTorneo({ onFinished, torneo }) {
     matchFrom: "any",
   });
 
+  async function createEstadisticasTablas() {
+    const responsesCreateEstadisticaTabla = await Promise.all([
+      graphQLClient.request(CREATE_ESTADISTICA_TABLA, {
+        jugador: "CHACA",
+      }),
+      graphQLClient.request(CREATE_ESTADISTICA_TABLA, {
+        jugador: "MASA",
+      }),
+      graphQLClient.request(CREATE_ESTADISTICA_TABLA, {
+        jugador: "SEBA",
+      }),
+    ]);
+
+    let estadisticasTablas = [];
+    responsesCreateEstadisticaTabla.forEach((response) => {
+      estadisticasTablas.push(response.createEstadisticaTabla._id);
+    });
+
+    return estadisticasTablas;
+  }
+
+  async function createEnfrentamientos() {
+    const responsesCreateEnfrentamientos = await Promise.all([
+      graphQLClient.request(CREATE_ENFRENTAMIENTO, {
+        jugador1: "CHACA",
+        jugador2: "MASA",
+        numeroEnfrentamiento: 1,
+      }),
+      graphQLClient.request(CREATE_ENFRENTAMIENTO, {
+        jugador1: "CHACA",
+        jugador2: "SEBA",
+        numeroEnfrentamiento: 2,
+      }),
+      graphQLClient.request(CREATE_ENFRENTAMIENTO, {
+        jugador1: "MASA",
+        jugador2: "SEBA",
+        numeroEnfrentamiento: 3,
+      }),
+      graphQLClient.request(CREATE_ENFRENTAMIENTO, {
+        jugador1: "MASA",
+        jugador2: "CHACA",
+        numeroEnfrentamiento: 4,
+      }),
+      graphQLClient.request(CREATE_ENFRENTAMIENTO, {
+        jugador1: "SEBA",
+        jugador2: "CHACA",
+        numeroEnfrentamiento: 5,
+      }),
+      graphQLClient.request(CREATE_ENFRENTAMIENTO, {
+        jugador1: "MASA",
+        jugador2: "SEBA",
+        numeroEnfrentamiento: 6,
+      }),
+    ]);
+
+    let enfrentamientos = [];
+    responsesCreateEnfrentamientos.forEach((response) => {
+      enfrentamientos.push(response.createEnfrentamiento._id);
+    });
+
+    return enfrentamientos;
+  }
+
   const createTorneo = async (data) => {
-    const equipoChaca = data.equipoChaca.value;
-    const equipoMasa = data.equipoMasa.value;
-    const equipoSeba = data.equipoSeba.value;
-
-    const { temporada, numeroTorneo } = data;
-
     try {
-      console.log(
-        "FORMULARIO: ",
-        equipoChaca,
-        equipoMasa,
-        equipoSeba,
-        temporada,
-        numeroTorneo
-      );
-      await fetch("/api/createTorneo", {
-        method: "POST",
-        body: JSON.stringify({
-          equipoChaca,
-          equipoMasa,
-          equipoSeba,
-          temporada,
-          numeroTorneo,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+      let estadisticasTablas = await createEstadisticasTablas();
+
+      let enfrentamientos = await createEnfrentamientos();
+
+      await graphQLClient.request(CREATE_TORNEO, {
+        numeroTorneo: parseInt(data.numeroTorneo),
+        equipoChaca: data.equipoChaca.value,
+        equipoMasa: data.equipoMasa.value,
+        equipoSeba: data.equipoSeba.value,
+        temporada: { connect: "290888197641077252" },
+        ganador: "",
+        resultados: { connect: enfrentamientos },
+        tablas: { connect: estadisticasTablas },
       });
+
       onFinished();
     } catch (err) {
-      console.error(err);
+      console.error("ERROR TorneoForm: ", err);
     }
   };
 
@@ -323,4 +389,4 @@ function CrearTorneo({ onFinished, torneo }) {
   );
 }
 
-export default withApollo(CrearTorneo);
+export default CrearTorneo;
