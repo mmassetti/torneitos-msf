@@ -1,40 +1,39 @@
 /* eslint-disable react/react-in-jsx-scope */
+import { useEffect } from "react";
 import EquiposJugadores from "./EquiposJugadores";
 import TorneoPuntajes from "./TorneoPuntajes";
 
 import TorneoResultados from "./TorneoResultados";
 
-export default function Torneo({ torneoData }) {
+export default function Torneo({ torneoData, onUpdateTorneo }) {
+  useEffect(() => {
+    console.log("entro al use effect de Torneo");
+  }, [torneoData]);
+
   function onUpdate(esLocal, numeroEnfrentamiento, goles, nombreJugador) {
-    console.log(
-      "🚀 ~ file: Torneo.js ~ line 8 ~ Torneo ~ torneoData ",
-      torneoData
-    );
-    let tablaToUpdate = torneoData.tablas.data.filter(
-      (tabla) => tabla.jugador == nombreJugador
-    );
+    onUpdateTorneo();
 
-    let enfrentamiento = torneoData.resultados.data[numeroEnfrentamiento - 1];
-    console.log(
-      "🚀 ~ file: Torneo.js ~ line 18 ~ onUpdate ~ enfrentamiento",
-      enfrentamiento
-    );
-    let shouldUpdatePuntajes = false;
-
-    if (esLocal) {
-      if (enfrentamiento.anotadosGolesJugador2) {
-        shouldUpdatePuntajes = true;
-      }
-    } else {
-      if (enfrentamiento.anotadosGolesJugador1) {
-        shouldUpdatePuntajes = true;
-      }
-    }
-
-    if (shouldUpdatePuntajes) {
-      alert("Actualizar porque ya estan los 2 cargados!");
-    }
-
+    // let tablaToUpdate = torneoData.tablas.data.filter(
+    //   (tabla) => tabla.jugador == nombreJugador
+    // );
+    // let enfrentamiento = torneoData.resultados.data[numeroEnfrentamiento - 1];
+    // console.log(
+    //   "🚀 ~ file: Torneo.js ~ line 18 ~ onUpdate ~ enfrentamiento",
+    //   enfrentamiento
+    // );
+    // let shouldUpdatePuntajes = false;
+    // if (esLocal) {
+    //   if (enfrentamiento.anotadosGolesJugador2) {
+    //     shouldUpdatePuntajes = true;
+    //   }
+    // } else {
+    //   if (enfrentamiento.anotadosGolesJugador1) {
+    //     shouldUpdatePuntajes = true;
+    //   }
+    // }
+    // if (shouldUpdatePuntajes) {
+    //   alert("Actualizar porque ya estan los 2 cargados!");
+    // }
     // console.log(
     //   "🚀 ~ file: Torneo.js ~ line 17 ~ onUpdate ~ tablaToUpdate",
     //   tablaToUpdate
