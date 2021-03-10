@@ -91,3 +91,33 @@ export const UPDATE_ENFRENTAMIENTO_JUGADOR2 = gql`
     }
   }
 `;
+
+export const UPDATE_ESTADISTICA_TABLA = gql`
+  mutation UpdateEstadisticaTabla(
+    $id: ID!
+    $jugador: Jugador!
+    $pj: Int!
+    $gf: Int!
+    $gc: Int!
+    $puntos: Int!
+    $pg: Int!
+    $pe: Int!
+    $pp: Int!
+  ) {
+    updateEstadisticaTabla(
+      id: $id
+      data: {
+        jugador: $jugador
+        pj: $pj
+        gf: $gf
+        gc: $gc
+        puntos: $puntos
+        pg: $pg
+        pe: $pe
+        pp: $pp
+      }
+    ) {
+      _id
+    }
+  }
+`;

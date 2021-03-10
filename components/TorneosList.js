@@ -3,41 +3,25 @@ import { useState, useEffect } from "react";
 import Torneo from "./Torneo";
 import { graphQLClient } from "../utils/grahpql-client";
 import { GET_TORNEOS_PARA_TEMPORADA } from "../graphql/queries";
+import useSWR from "swr";
 
-function TorneosList({ nombreTemporada }) {
-  const [torneos, setTorneos] = useState("");
+function TorneosList({ nombreTemporada, temporadasInfo, onUpdateTorneos }) {
   const [triggerUpdate, setTriggerUpdate] = useState(false);
 
   async function onUpdateTorneo() {
-    const variables = {
-      nombre: nombreTemporada,
-    };
-
-    const torneosParaTemporada = await graphQLClient.request(
-      GET_TORNEOS_PARA_TEMPORADA,
-      variables
-    );
-
-    setTorneos(torneosParaTemporada.temporadaByName.torneos.data);
-    setTriggerUpdate(true);
+    onUpdateTorneos();
+    // alert("Update torneo torneos list");
+    // setTriggerUpdate(true);
   }
 
-  useEffect(() => {
-    console.log("entro al use effect de TorneosList");
-    async function getTorneos() {
-      const variables = {
-        nombre: nombreTemporada,
-      };
+  let temporada = temporadasInfo?.filter(
+    (temporada) => temporada.nombre == nombreTemporada
+  );
 
-      const torneosParaTemporada = await graphQLClient.request(
-        GET_TORNEOS_PARA_TEMPORADA,
-        variables
-      );
-
-      setTorneos(torneosParaTemporada.temporadaByName.torneos.data);
-    }
-    getTorneos();
-  }, [nombreTemporada, triggerUpdate, setTriggerUpdate]);
+  let torneos = [];
+  if (temporada && temporada[0]) {
+    torneos = temporada[0].torneos.data;
+  }
 
   if (torneos) {
     if (torneos.length > 0) {
