@@ -1,12 +1,32 @@
 /* eslint-disable react/react-in-jsx-scope */
 import TorneoGanador from "./TorneoGanador";
+import useSWR from "swr";
+import { graphQLClient } from "../utils/grahpql-client";
+import { GET_INFO_TORNEO } from "../graphql/queries";
 
 const capitalize = (s) => {
   if (typeof s !== "string") return "";
   return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
 };
 
-export default function TorneoPuntajes({ torneoData }) {
+export default function TorneoPuntajes({ id }) {
+  const fetcher = async (query) => await graphQLClient.request(query, { id });
+
+  const { data, loading, error, mutate } = useSWR(
+    id ? [GET_INFO_TORNEO, id] : null,
+    fetcher
+    // { refreshInterval: 1000 }
+  );
+
+  if (loading) {
+    return "Cargando...";
+  }
+
+  if (error) {
+    console.log("ERROR TorneoPuntajes: ", error);
+    return <div>Error al cargar los datos del torneo </div>;
+  }
+
   //TODO: Refactor : the classNames are always the same..
   return (
     <div>
@@ -73,7 +93,7 @@ export default function TorneoPuntajes({ torneoData }) {
           </tr>
         </thead>
         <tbody>
-          {torneoData.tablas.data.map((tabla) => {
+          {data?.findTorneoByID.tablas.data.map((tabla) => {
             let jugador = tabla.jugador;
 
             return (
@@ -107,7 +127,7 @@ export default function TorneoPuntajes({ torneoData }) {
           })}
         </tbody>
       </table>
-      <TorneoGanador torneoData={torneoData} />
+      {data ? <TorneoGanador torneoData={data.findTorneoByID} /> : null}
     </div>
   );
 }

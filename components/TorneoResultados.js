@@ -31,7 +31,7 @@ export default function TorneoResultados({ torneoData, onUpdate }) {
     goles,
     nombreJugador
   ) {
-    let idToEdit = torneoData.resultados.data[numeroEnfrentamiento - 1]._id;
+    let idToEdit = torneoData?.resultados.data[numeroEnfrentamiento - 1]._id;
 
     if (esLocal) {
       await graphQLClient.request(UPDATE_ENFRENTAMIENTO_JUGADOR1, {
@@ -47,13 +47,14 @@ export default function TorneoResultados({ torneoData, onUpdate }) {
       });
     }
 
-    onUpdate(esLocal, numeroEnfrentamiento, goles, nombreJugador);
+    await onUpdate(esLocal, numeroEnfrentamiento, goles, nombreJugador);
   }
 
   let resultadosArray = [];
 
-  torneoData.resultados.data.map((resultado) => {
+  torneoData?.resultados.data.map((resultado) => {
     resultadosArray.push({
+      numeroEnfrentamiento: resultado.numeroEnfrentamiento,
       local: resultado.jugador1,
       golesLocal:
         resultado.golesJugador1 || resultado.golesJugador1 == 0
@@ -66,6 +67,10 @@ export default function TorneoResultados({ torneoData, onUpdate }) {
           : "-",
     });
   });
+
+  // resultadosArray.sort(
+  //   (a, b) => a.numeroEnfrentamiento - b.numeroEnfrentamiento
+  // );
 
   return (
     <div className={classes.tableResponsive}>

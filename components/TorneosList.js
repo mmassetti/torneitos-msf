@@ -1,29 +1,38 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useState, useEffect } from "react";
-import Torneo from "./Torneo";
-import { graphQLClient } from "../utils/grahpql-client";
 import { GET_TORNEOS_PARA_TEMPORADA } from "../graphql/queries";
+import Torneo from "./Torneo";
 import useSWR from "swr";
+import { graphQLClient } from "../utils/grahpql-client";
 
-function TorneosList({ nombreTemporada, temporadasInfo, onUpdateTorneos }) {
-  const [triggerUpdate, setTriggerUpdate] = useState(false);
+function TorneosList({ nombre, temporadasInfo, onUpdateTorneos }) {
+  const fetcher = async (query) =>
+    await graphQLClient.request(query, { nombre });
 
-  async function onUpdateTorneo() {
-    onUpdateTorneos();
-    // alert("Update torneo torneos list");
-    // setTriggerUpdate(true);
-  }
+  // async function onUpdateTorneo() {
+  //   await onUpdateTorneos();
+  // }
 
-  let temporada = temporadasInfo?.filter(
-    (temporada) => temporada.nombre == nombreTemporada
+  // let temporada = temporadasInfo?.filter(
+  //   (temporada) => temporada.nombre == nombreTemporada
+  // );
+
+  const { data, loading, error, mutate } = useSWR(
+    nombre ? [GET_TORNEOS_PARA_TEMPORADA, nombre] : null,
+    fetcher
   );
 
-  let torneos = [];
-  if (temporada && temporada[0]) {
-    torneos = temporada[0].torneos.data;
+  if (loading) {
+    return "Cargando...";
   }
 
-  if (torneos) {
+  if (error) {
+    console.log("ERROR TorneosList: ", error);
+    return <div>Error al cargar los torneos</div>;
+  }
+
+  if (data) {
+    let torneos = data.temporadaByName.torneos.data;
+
     if (torneos.length > 0) {
       return (
         <ul>
@@ -31,8 +40,9 @@ function TorneosList({ nombreTemporada, temporadasInfo, onUpdateTorneos }) {
             return (
               <Torneo
                 key={torneo._id}
-                torneoData={torneo}
-                onUpdateTorneo={onUpdateTorneo}
+                // torneoData={torneo}
+                onUpdateTorneo={() => mutate()}
+                id={torneo._id}
               />
             );
           })}

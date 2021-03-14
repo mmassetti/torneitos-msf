@@ -6,21 +6,38 @@ import TorneoPuntajes from "./TorneoPuntajes";
 
 import TorneoResultados from "./TorneoResultados";
 import { UPDATE_ESTADISTICA_TABLA } from "../graphql/mutations";
+import useSWR from "swr";
+import { GET_INFO_TORNEO } from "../graphql/queries";
 
-export default function Torneo({ torneoData, onUpdateTorneo }) {
+export default function Torneo({ onUpdateTorneo, id }) {
+  const fetcher = async (query) => await graphQLClient.request(query, { id });
+  const { data, loading, error, mutate } = useSWR(
+    id ? [GET_INFO_TORNEO, id] : null,
+    fetcher
+  );
+
+  if (loading) {
+    return "Cargando...";
+  }
+
+  if (error) {
+    console.log("ERROR TorneoPuntajes: ", error);
+    return <div>Error al cargar los datos del torneo </div>;
+  }
+
   async function onUpdate(
     esLocalJugadorActual,
     numeroEnfrentamiento,
     golesJugadorActual,
     nombreJugadorActual
   ) {
-    onUpdateTorneo();
+    mutate();
+    // onUpdateTorneo();
 
-    let enfrentamiento = torneoData.resultados.data[numeroEnfrentamiento - 1];
-    console.log(
-      "🚀 ~ file: Torneo.js ~ line 15 ~ onUpdate ~ enfrentamiento ",
-      enfrentamiento
-    );
+    console.log("🚀 ~ file: Torneo.js ~ line 15 ~ Torneo ~ data", data);
+
+    let enfrentamiento =
+      data?.findTorneoByID.resultados.data[numeroEnfrentamiento - 1];
 
     let shouldUpdatePuntajes = false;
     if (esLocalJugadorActual) {
@@ -37,7 +54,7 @@ export default function Torneo({ torneoData, onUpdateTorneo }) {
       //Actualizo tabla de puntajes
 
       //1) Actualizo tabla jugador actual (probablemente el visitante si ya puse al local)
-      let jugadorActual = torneoData.tablas.data.filter(
+      let jugadorActual = data?.findTorneoByID.tablas.data.filter(
         (tabla) => tabla.jugador == nombreJugadorActual
       )[0];
 
@@ -48,13 +65,9 @@ export default function Torneo({ torneoData, onUpdateTorneo }) {
           ? enfrentamiento.jugador2
           : enfrentamiento.jugador1;
 
-      let otroJugador = torneoData.tablas.data.filter(
+      let otroJugador = data?.findTorneoByID.tablas.data.filter(
         (tabla) => tabla.jugador == nombreOtroJugador
       )[0];
-      console.log(
-        "🚀 ~ file: Torneo.js ~ line 54 ~ Torneo ~ otroJugador",
-        otroJugador
-      );
 
       let idToEditOtroJugador = otroJugador._id;
 
@@ -93,11 +106,6 @@ export default function Torneo({ torneoData, onUpdateTorneo }) {
         puntosOtroJugador = 1;
       }
 
-      console.log(
-        "🚀 ~ file: Torneo.js ~ line 100 ~ Torneo ~ jugadorActual.pj",
-        jugadorActual.pj
-      );
-
       await graphQLClient.request(UPDATE_ESTADISTICA_TABLA, {
         id: idToEditJugadorActual,
         jugador: nombreJugadorActual,
@@ -121,11 +129,6 @@ export default function Torneo({ torneoData, onUpdateTorneo }) {
           ? parseInt(jugadorActual.pp) + parseInt(ppJugadorActual)
           : parseInt(ppJugadorActual),
       });
-
-      console.log(
-        "🚀 ~ file: Torneo.js ~ line 130 ~ Torneo ~ otroJugador.pj",
-        otroJugador.pj
-      );
 
       //2) Actualizo tabla jugador anterior (probablemente el local)
       await graphQLClient.request(UPDATE_ESTADISTICA_TABLA, {
@@ -168,7 +171,7 @@ export default function Torneo({ torneoData, onUpdateTorneo }) {
         <h3 className="w-full md:w-4/12 px-4 mr-auto ml-auto text-3xl mb-2 mt-4 font-semibold leading-normal">
           Torneo{" "}
           <span className={"font-bold text-blue-600"}>
-            #{torneoData.numeroTorneo}{" "}
+            #{data?.findTorneoByID.numeroTorneo}
           </span>
         </h3>
         <div className="flex flex-row-reverse px-4 mx-auto">
@@ -180,20 +183,22 @@ export default function Torneo({ torneoData, onUpdateTorneo }) {
               >
                 <div className="p-4">
                   <TorneoResultados
-                    torneoData={torneoData}
+                    torneoData={data?.findTorneoByID}
                     onUpdate={onUpdate}
                   />
                 </div>
               </div>
               <div className="item bg-white m-2 w-64">
                 <div className="p-4">
-                  <EquiposJugadores torneoData={torneoData} />
+                  <EquiposJugadores
+                    torneoData={data ? data.findTorneoByID : []}
+                  />
                 </div>
               </div>
 
               <div className="item bg-white m-2 w-64">
                 <div className="p-4 mt-4">
-                  <TorneoPuntajes torneoData={torneoData} />
+                  {id ? <TorneoPuntajes id={id} /> : <p>Cargando...</p>}
                 </div>
               </div>
             </div>

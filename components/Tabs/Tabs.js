@@ -10,6 +10,10 @@ const fetcher = async (query) => await graphQLClient.request(query);
 const Tabs = () => {
   const [openTab, setOpenTab] = useState(1);
 
+  // const { data, loading, error, mutate } = useSWR(GET_TEMPORADAS, fetcher, {
+  //   refreshInterval: 1000,
+  // });
+
   const { data, loading, error, mutate } = useSWR(GET_TEMPORADAS, fetcher);
 
   if (loading) {
@@ -75,9 +79,9 @@ const Tabs = () => {
                         key={temporada._id}
                       >
                         <TorneosList
-                          nombreTemporada={temporada.nombre}
-                          temporadasInfo={data.allTemporadas.data}
-                          onUpdateTorneos={() => mutateTorneo()}
+                          nombre={temporada.nombre}
+                          // temporadasInfo={data.allTemporadas.data}
+                          // onUpdateTorneos={() => mutateTorneo()}
                         />
                       </div>
                     );

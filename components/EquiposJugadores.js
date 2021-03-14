@@ -1,11 +1,15 @@
 const getEscudo = (nombreEquipo) => {
-  return (
-    <img
-      src={require(`assets/img/logos-equipos/${nombreEquipo}.png`)}
-      className="h-12 w-12"
-      alt="Hubo un error al cargar el escudo"
-    ></img>
-  );
+  if (nombreEquipo) {
+    return (
+      <img
+        src={require(`assets/img/logos-equipos/${nombreEquipo}.png`)}
+        className="h-12 w-12"
+        alt="Hubo un error al cargar el escudo"
+      ></img>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default function EquiposJugadores({ torneoData }) {
