@@ -1,5 +1,4 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useEffect } from "react";
 import { graphQLClient } from "../utils/grahpql-client";
 import EquiposJugadores from "./EquiposJugadores";
 import TorneoPuntajes from "./TorneoPuntajes";
@@ -31,24 +30,23 @@ export default function Torneo({ onUpdateTorneo, id }) {
     golesJugadorActual,
     nombreJugadorActual
   ) {
-    mutate();
+    // mutate();
     // onUpdateTorneo();
-
-    console.log("🚀 ~ file: Torneo.js ~ line 15 ~ Torneo ~ data", data);
 
     let enfrentamiento =
       data?.findTorneoByID.resultados.data[numeroEnfrentamiento - 1];
 
-    let shouldUpdatePuntajes = false;
-    if (esLocalJugadorActual) {
-      if (enfrentamiento.anotadosGolesJugador2) {
-        shouldUpdatePuntajes = true;
-      }
-    } else {
-      if (enfrentamiento.anotadosGolesJugador1) {
-        shouldUpdatePuntajes = true;
-      }
-    }
+    let shouldUpdatePuntajes = !esLocalJugadorActual;
+    // let shouldUpdatePuntajes = false;
+    // if (esLocalJugadorActual) {
+    //   if (enfrentamiento.anotadosGolesJugador2) {
+    //     shouldUpdatePuntajes = true;
+    //   }
+    // } else {
+    //   if (enfrentamiento.anotadosGolesJugador1) {
+    //     shouldUpdatePuntajes = true;
+    //   }
+    // }
 
     if (shouldUpdatePuntajes) {
       //Actualizo tabla de puntajes

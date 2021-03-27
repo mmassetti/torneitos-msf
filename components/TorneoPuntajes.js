@@ -14,8 +14,8 @@ export default function TorneoPuntajes({ id }) {
 
   const { data, loading, error, mutate } = useSWR(
     id ? [GET_INFO_TORNEO, id] : null,
-    fetcher
-    // { refreshInterval: 1000 }
+    fetcher,
+    { refreshInterval: 1000 }
   );
 
   if (loading) {
@@ -26,6 +26,11 @@ export default function TorneoPuntajes({ id }) {
     console.log("ERROR TorneoPuntajes: ", error);
     return <div>Error al cargar los datos del torneo </div>;
   }
+
+  //TODO: Si hay igualdad en puntos, poner primero al que tiene mejor diferencia de gol, si la dieferncia de gol es la misma, poner primero al que hizo mas goles, si los goles son los mismos, poner al que tiene menores gc
+  let sortedData = data?.findTorneoByID.tablas.data.sort(
+    (a, b) => b.puntos - a.puntos
+  );
 
   //TODO: Refactor : the classNames are always the same..
   return (
@@ -93,7 +98,7 @@ export default function TorneoPuntajes({ id }) {
           </tr>
         </thead>
         <tbody>
-          {data?.findTorneoByID.tablas.data.map((tabla) => {
+          {sortedData?.map((tabla) => {
             let jugador = tabla.jugador;
 
             return (

@@ -10,11 +10,7 @@ const fetcher = async (query) => await graphQLClient.request(query);
 const Tabs = () => {
   const [openTab, setOpenTab] = useState(1);
 
-  // const { data, loading, error, mutate } = useSWR(GET_TEMPORADAS, fetcher, {
-  //   refreshInterval: 1000,
-  // });
-
-  const { data, loading, error, mutate } = useSWR(GET_TEMPORADAS, fetcher);
+  const { data, loading, error } = useSWR(GET_TEMPORADAS, fetcher);
 
   if (loading) {
     return "Cargando...";
@@ -23,11 +19,6 @@ const Tabs = () => {
   if (error) {
     console.log("ERROR Tabs: ", error);
     return <div>Error al cargar las temporadas </div>;
-  }
-
-  function mutateTorneo() {
-    console.log("CALL TO MUTATE");
-    mutate();
   }
 
   return (
@@ -78,11 +69,7 @@ const Tabs = () => {
                         id={`#link${index + 1}`}
                         key={temporada._id}
                       >
-                        <TorneosList
-                          nombre={temporada.nombre}
-                          // temporadasInfo={data.allTemporadas.data}
-                          // onUpdateTorneos={() => mutateTorneo()}
-                        />
+                        <TorneosList nombre={temporada.nombre} />
                       </div>
                     );
                   })}

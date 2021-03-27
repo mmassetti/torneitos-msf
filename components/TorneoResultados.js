@@ -1,29 +1,14 @@
-import { useState } from "react";
-import MaterialTable from "material-table";
-import { optionsConfig, localizationConfig } from "./tableConfig";
-import { makeStyles } from "@material-ui/core/styles";
-import styles from "components/tableStyle.js";
+import { useState, useMemo, useEffect } from "react";
 import { graphQLClient } from "../utils/grahpql-client";
 import {
   UPDATE_ENFRENTAMIENTO_JUGADOR1,
   UPDATE_ENFRENTAMIENTO_JUGADOR2,
 } from "../graphql/mutations";
-
-const useStyles = makeStyles(styles);
+import Table from "./ResultadosTable";
 
 export default function TorneoResultados({ torneoData, onUpdate }) {
-  const classes = useStyles();
-
-  const [columns] = useState([
-    { title: "Local", field: "local", editable: "never" },
-    { title: "", field: "golesLocal" },
-    { title: "", field: "golesVisitante" },
-    {
-      title: "Visitante",
-      field: "visitante",
-      editable: "never",
-    },
-  ]);
+  const [skipPageReset, setSkipPageReset] = useState(false);
+  const [data, setData] = useState([]);
 
   async function updateInfo(
     esLocal,
@@ -50,70 +35,94 @@ export default function TorneoResultados({ torneoData, onUpdate }) {
     await onUpdate(esLocal, numeroEnfrentamiento, goles, nombreJugador);
   }
 
-  let resultadosArray = [];
+  const columns = useMemo(
+    () => [
+      {
+        Header: "Local",
+        accessor: "local", // accessor is the "key" in the data
+      },
+      {
+        Header: "",
+        accessor: "golesLocal",
+      },
+      {
+        Header: "",
+        accessor: "golesVisitante",
+      },
+      {
+        Header: "Visitante",
+        accessor: "visitante",
+      },
+    ],
+    []
+  );
 
-  torneoData?.resultados.data.map((resultado) => {
-    resultadosArray.push({
-      numeroEnfrentamiento: resultado.numeroEnfrentamiento,
-      local: resultado.jugador1,
-      golesLocal:
-        resultado.golesJugador1 || resultado.golesJugador1 == 0
-          ? resultado.golesJugador1
-          : "-",
-      visitante: resultado.jugador2,
-      golesVisitante:
-        resultado.golesJugador2 || resultado.golesJugador2 == 0
-          ? resultado.golesJugador2
-          : "-",
+  useEffect(() => {
+    let resultadosArray = [];
+
+    // eslint-disable-next-line no-unused-expressions
+    torneoData?.resultados.data.map((resultado) => {
+      resultadosArray.push({
+        numeroEnfrentamiento: resultado.numeroEnfrentamiento,
+        local: resultado.jugador1,
+        golesLocal:
+          resultado.golesJugador1 || resultado.golesJugador1 == 0
+            ? resultado.golesJugador1
+            : "-",
+        visitante: resultado.jugador2,
+        golesVisitante:
+          resultado.golesJugador2 || resultado.golesJugador2 == 0
+            ? resultado.golesJugador2
+            : "-",
+      });
     });
-  });
 
-  // resultadosArray.sort(
-  //   (a, b) => a.numeroEnfrentamiento - b.numeroEnfrentamiento
-  // );
+    // resultadosArray.sort(
+    //   (a, b) => a.numeroEnfrentamiento - b.numeroEnfrentamiento
+    // );
+
+    // const memoizedData = React.useMemo(() => resultadosArray, []);
+    setData(resultadosArray);
+    setSkipPageReset(false);
+  }, [torneoData]);
+
+  // We need to keep the table from resetting the pageIndex when we
+  // Update data. So we can keep track of that flag with a ref.
+
+  // When our cell renderer calls updateMyData, we'll use
+  // the rowIndex, columnId and new value to update the
+  // original data
+  const updateMyData = async (rowIndex, columnId, value) => {
+    let esLocal = columnId === "golesLocal";
+    let numeroEnfrentamiento = rowIndex + 1;
+    let goles = value;
+
+    const nombreJugador = esLocal
+      ? data[rowIndex].local
+      : data[rowIndex].visitante;
+
+    // We also turn on the flag to not reset the page
+    setSkipPageReset(true);
+    setData((old) =>
+      old.map((row, index) => {
+        if (index === rowIndex) {
+          return {
+            ...old[rowIndex],
+            [columnId]: value,
+          };
+        }
+        return row;
+      })
+    );
+    await updateInfo(esLocal, numeroEnfrentamiento, goles, nombreJugador);
+  };
 
   return (
-    <div className={classes.tableResponsive}>
-      <MaterialTable
-        title="Resultados"
-        columns={columns}
-        data={resultadosArray}
-        options={optionsConfig}
-        localization={localizationConfig}
-        cellEditable={{
-          onCellEditApproved: (newValue, oldValue, rowData, columnDef) => {
-            let esLocal = columnDef.field === "golesLocal";
-
-            let numeroEnfrentamiento = rowData.tableData.id + 1;
-
-            let goles = newValue;
-
-            return new Promise((resolve, reject) => {
-              setTimeout(async () => {
-                const dataUpdate = [...resultadosArray];
-                const index = rowData.tableData.id;
-                const nombreJugador = esLocal
-                  ? rowData.local
-                  : rowData.visitante;
-                if (esLocal) {
-                  dataUpdate[index].golesLocal = newValue;
-                } else {
-                  dataUpdate[index].golesVisitante = newValue;
-                }
-
-                await updateInfo(
-                  esLocal,
-                  numeroEnfrentamiento,
-                  goles,
-                  nombreJugador
-                );
-
-                resolve();
-              }, 1000);
-            });
-          },
-        }}
-      />
-    </div>
+    <Table
+      columns={columns}
+      data={data}
+      updateMyData={updateMyData}
+      skipPageReset={skipPageReset}
+    />
   );
 }
