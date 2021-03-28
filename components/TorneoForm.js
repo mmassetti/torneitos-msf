@@ -146,12 +146,13 @@ function CrearTorneo({ onFinished, torneo }) {
 
       let enfrentamientos = await createEnfrentamientos();
 
+      //TODO: El connect de la temporada debe venir de la base de datos
       await graphQLClient.request(CREATE_TORNEO, {
         numeroTorneo: parseInt(data.numeroTorneo),
         equipoChaca: data.equipoChaca.value,
         equipoMasa: data.equipoMasa.value,
         equipoSeba: data.equipoSeba.value,
-        temporada: { connect: "290888197641077252" },
+        temporada: { connect: "294253246084547075" },
         ganador: "",
         resultados: { connect: enfrentamientos },
         tablas: { connect: estadisticasTablas },

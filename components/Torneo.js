@@ -30,41 +30,40 @@ export default function Torneo({ onUpdateTorneo, id }) {
     golesJugadorActual,
     nombreJugadorActual
   ) {
-    // mutate();
-    // onUpdateTorneo();
+    mutate();
 
     let enfrentamiento =
       data?.findTorneoByID.resultados.data[numeroEnfrentamiento - 1];
 
-    let shouldUpdatePuntajes = !esLocalJugadorActual;
-    // let shouldUpdatePuntajes = false;
-    // if (esLocalJugadorActual) {
-    //   if (enfrentamiento.anotadosGolesJugador2) {
-    //     shouldUpdatePuntajes = true;
-    //   }
-    // } else {
-    //   if (enfrentamiento.anotadosGolesJugador1) {
-    //     shouldUpdatePuntajes = true;
-    //   }
-    // }
+    let shouldUpdatePuntajes = false;
+
+    if (esLocalJugadorActual) {
+      if (enfrentamiento.anotadosGolesJugador2) {
+        shouldUpdatePuntajes = true;
+      }
+    } else {
+      if (enfrentamiento.anotadosGolesJugador1) {
+        shouldUpdatePuntajes = true;
+      }
+    }
 
     if (shouldUpdatePuntajes) {
       //Actualizo tabla de puntajes
 
       //1) Actualizo tabla jugador actual (probablemente el visitante si ya puse al local)
       let jugadorActual = data?.findTorneoByID.tablas.data.filter(
-        (tabla) => tabla.jugador == nombreJugadorActual
+        (tabla) => tabla.jugador === nombreJugadorActual
       )[0];
 
       let idToEditJugadorActual = jugadorActual._id;
 
       let nombreOtroJugador =
-        jugadorActual == enfrentamiento.jugador1
+        jugadorActual.jugador === enfrentamiento.jugador1
           ? enfrentamiento.jugador2
           : enfrentamiento.jugador1;
 
       let otroJugador = data?.findTorneoByID.tablas.data.filter(
-        (tabla) => tabla.jugador == nombreOtroJugador
+        (tabla) => tabla.jugador === nombreOtroJugador
       )[0];
 
       let idToEditOtroJugador = otroJugador._id;
@@ -88,12 +87,12 @@ export default function Torneo({ onUpdateTorneo, id }) {
       let ppOtroJugador = 0;
       let empate = 0;
 
-      if (ganadorPartido == nombreJugadorActual) {
+      if (ganadorPartido === nombreJugadorActual) {
         puntosJugadorActual = 3;
         puntosOtroJugador = 0;
         pgJugadorActual = 1;
         ppOtroJugador = 1;
-      } else if (ganadorPartido == nombreOtroJugador) {
+      } else if (ganadorPartido === nombreOtroJugador) {
         puntosJugadorActual = 0;
         puntosOtroJugador = 3;
         ppJugadorActual = 1;

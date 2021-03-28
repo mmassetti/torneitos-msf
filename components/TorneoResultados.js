@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { graphQLClient } from "../utils/grahpql-client";
 import {
   UPDATE_ENFRENTAMIENTO_JUGADOR1,

@@ -135,6 +135,8 @@ export const GET_INFO_TORNEO = gql`
           golesJugador1
           golesJugador2
           numeroEnfrentamiento
+          anotadosGolesJugador1
+          anotadosGolesJugador2
         }
       }
       tablas {

@@ -32,6 +32,26 @@ export default function TorneoPuntajes({ id }) {
     (a, b) => b.puntos - a.puntos
   );
 
+  const getExtraClassJugador1 = (golesJugador1, golesJugador2) => {
+    if (golesJugador1 > golesJugador2) {
+      return "bg-green-200 font-bold";
+    } else if (golesJugador1 === golesJugador2) {
+      return "bg-orange-200 ";
+    } else {
+      return "bg-red-200";
+    }
+  };
+
+  const getExtraClassJugador2 = (golesJugador2, golesJugador1) => {
+    if (golesJugador2 > golesJugador1) {
+      return "bg-green-200 font-bold";
+    } else if (golesJugador1 === golesJugador2) {
+      return "bg-orange-200 ";
+    } else {
+      return "bg-red-200";
+    }
+  };
+
   //TODO: Refactor : the classNames are always the same..
   return (
     <div>
@@ -99,11 +119,17 @@ export default function TorneoPuntajes({ id }) {
         </thead>
         <tbody>
           {sortedData?.map((tabla) => {
+            //TODO: Mostrar clase extra dependiendo si el jugador ganó, perdio o empató (verde, rojo, amarillo)
             let jugador = tabla.jugador;
 
             return (
               <tr key={jugador}>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4  ">
+                <td
+                  //todo: ACA HACER UN "+  getExtraClassJugador1(golesJugador1, golesJugador2)" y en el resto tambien
+                  className={
+                    "border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4  "
+                  }
+                >
                   {capitalize(jugador)}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 ">

@@ -17,7 +17,9 @@ const EditableCell = ({
 
   // We'll only update the external data when the input is blurred
   const onBlur = () => {
-    if (value !== "-" && value !== "") {
+    let isValidNumber = /^-?\d+$/.test(value);
+
+    if (isValidNumber) {
       updateMyData(index, id, value);
     }
   };
