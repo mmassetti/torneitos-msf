@@ -39,7 +39,9 @@ type Torneo {
   equipoMasa: String!
   equipoSeba: String!
   tablas: [EstadisticaTabla] @relation
-  ganador: String
+  campeon: String
+  segundo: String
+  tercero: String
   resultados: [Enfrentamiento] @relation
 }
 

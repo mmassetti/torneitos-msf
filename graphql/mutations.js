@@ -1,5 +1,23 @@
 import { gql } from "graphql-request";
 
+export const UPDATE_TORNEO = gql`
+  mutation UpdateTorneo(
+    $id: ID!
+    $campeon: String!
+    $segundo: String!
+    $tercero: String!
+  ) {
+    partialUpdateTorneo(
+      id: $id
+      data: { campeon: $campeon, segundo: $segundo, tercero: $tercero }
+    ) {
+      _id
+      numeroTorneo
+      campeon
+    }
+  }
+`;
+
 export const CREATE_TORNEO = gql`
   mutation CreateTorneo(
     $numeroTorneo: Int!
@@ -7,7 +25,9 @@ export const CREATE_TORNEO = gql`
     $equipoChaca: String!
     $equipoSeba: String!
     $temporada: TorneoTemporadaRelation
-    $ganador: String
+    $campeon: String
+    $segundo: String
+    $tercero: String
     $resultados: TorneoResultadosRelation
     $tablas: TorneoTablasRelation
   ) {
@@ -18,7 +38,9 @@ export const CREATE_TORNEO = gql`
         equipoChaca: $equipoChaca
         equipoSeba: $equipoSeba
         temporada: $temporada
-        ganador: $ganador
+        campeon: $campeon
+        segundo: $segundo
+        tercero: $tercero
         resultados: $resultados
         tablas: $tablas
       }

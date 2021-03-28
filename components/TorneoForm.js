@@ -153,7 +153,9 @@ function CrearTorneo({ onFinished, torneo }) {
         equipoMasa: data.equipoMasa.value,
         equipoSeba: data.equipoSeba.value,
         temporada: { connect: "294253246084547075" },
-        ganador: "",
+        campeon: "",
+        segundo: "",
+        tercero: "",
         resultados: { connect: enfrentamientos },
         tablas: { connect: estadisticasTablas },
       });
@@ -166,20 +168,6 @@ function CrearTorneo({ onFinished, torneo }) {
 
   const updateTorneo = async (data) => {
     alert("update torneo");
-    // const { tabla, ganador, resultados } = data;
-    // const id = torneo.id;
-    // try {
-    //   await fetch("/api/updateTorneo", {
-    //     method: "PUT",
-    //     body: JSON.stringify({ tabla, ganador, resultados, id }),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   // router.push("/");
-    // } catch (err) {
-    //   console.error(err);
-    // }
   };
 
   return (

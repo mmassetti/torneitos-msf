@@ -4,19 +4,10 @@ import Torneo from "./Torneo";
 import useSWR from "swr";
 import { graphQLClient } from "../utils/grahpql-client";
 
-function TorneosList({ nombre, temporadasInfo, onUpdateTorneos }) {
+function TorneosList({ nombre }) {
   const fetcher = async (query) =>
     await graphQLClient.request(query, { nombre });
-
-  // async function onUpdateTorneo() {
-  //   await onUpdateTorneos();
-  // }
-
-  // let temporada = temporadasInfo?.filter(
-  //   (temporada) => temporada.nombre == nombreTemporada
-  // );
-
-  const { data, loading, error, mutate } = useSWR(
+  const { data, loading, error } = useSWR(
     nombre ? [GET_TORNEOS_PARA_TEMPORADA, nombre] : null,
     fetcher
   );
@@ -37,14 +28,7 @@ function TorneosList({ nombre, temporadasInfo, onUpdateTorneos }) {
       return (
         <ul>
           {torneos.map((torneo) => {
-            return (
-              <Torneo
-                key={torneo._id}
-                // torneoData={torneo}
-                onUpdateTorneo={() => mutate()}
-                id={torneo._id}
-              />
-            );
+            return <Torneo key={torneo._id} id={torneo._id} />;
           })}
         </ul>
       );

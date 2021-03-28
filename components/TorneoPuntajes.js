@@ -12,7 +12,7 @@ const capitalize = (s) => {
 export default function TorneoPuntajes({ id }) {
   const fetcher = async (query) => await graphQLClient.request(query, { id });
 
-  const { data, loading, error, mutate } = useSWR(
+  const { data, loading, error } = useSWR(
     id ? [GET_INFO_TORNEO, id] : null,
     fetcher,
     { refreshInterval: 1000 }
