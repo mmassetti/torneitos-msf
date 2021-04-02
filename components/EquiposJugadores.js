@@ -1,3 +1,5 @@
+import React from "react";
+
 const getEscudo = (nombreEquipo) => {
   if (nombreEquipo) {
     return (

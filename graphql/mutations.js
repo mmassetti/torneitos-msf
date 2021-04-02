@@ -143,3 +143,53 @@ export const UPDATE_ESTADISTICA_TABLA = gql`
     }
   }
 `;
+
+export const RESET_ENFRENTAMIENTO = gql`
+  mutation ResetEnfrentamiento(
+    $id: ID!
+    $golesJugador1: Int
+    $golesJugador2: Int
+    $anotadosGolesJugador1: Boolean!
+    $anotadosGolesJugador2: Boolean!
+  ) {
+    updateEnfrentamiento(
+      id: $id
+      data: {
+        golesJugador1: $golesJugador1
+        golesJugador2: $golesJugador2
+        anotadosGolesJugador1: $anotadosGolesJugador1
+        anotadosGolesJugador2: $anotadosGolesJugador2
+      }
+    ) {
+      _id
+    }
+  }
+`;
+
+export const RESET_ESTADISTICA_TABLA = gql`
+  mutation ResetEnfrentamiento(
+    $id: ID!
+    $pj: Int
+    $pg: Int
+    $pe: Int
+    $pp: Int
+    $gf: Int
+    $gc: Int
+    $puntos: Int
+  ) {
+    partialUpdateEstadisticaTabla(
+      id: $id
+      data: {
+        pj: $pj
+        pg: $pg
+        pe: $pe
+        pp: $pp
+        gf: $gf
+        gc: $gc
+        puntos: $puntos
+      }
+    ) {
+      _id
+    }
+  }
+`;

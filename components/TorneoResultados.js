@@ -61,17 +61,17 @@ export default function TorneoResultados({ torneoData, onUpdate }) {
     let resultadosArray = [];
 
     // eslint-disable-next-line no-unused-expressions
-    torneoData?.resultados.data.map((resultado) => {
+    torneoData?.resultados.data.forEach((resultado) => {
       resultadosArray.push({
         numeroEnfrentamiento: resultado.numeroEnfrentamiento,
         local: resultado.jugador1,
         golesLocal:
-          resultado.golesJugador1 || resultado.golesJugador1 == 0
+          resultado.golesJugador1 || resultado.golesJugador1 === 0
             ? resultado.golesJugador1
             : "-",
         visitante: resultado.jugador2,
         golesVisitante:
-          resultado.golesJugador2 || resultado.golesJugador2 == 0
+          resultado.golesJugador2 || resultado.golesJugador2 === 0
             ? resultado.golesJugador2
             : "-",
       });
