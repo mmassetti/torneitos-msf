@@ -54,21 +54,7 @@ function CrearTorneo({ onFinished, torneo }) {
     return { value: temporada.nombre, label: temporada.nombre };
   });
 
-  let numeroTorneo = cantidadTorneos + 1;
-
-  const { register, handleSubmit, errors, control } = useForm({
-    // defaultValues: {
-    //   tabla: torneo ? torneo.data.tabla : "",
-    //   ganador: torneo ? torneo.data.ganador : "",
-    //   resultados: torneo ? torneo.data.resultados : "",
-    //   equipos: torneo ? torneo.data.equipos : "",
-    //   temporada: torneo ? torneo.data.temporada : "",
-    //   numeroTorneo: torneo ? torneo.data.numeroTorneo : "",
-    //   equipoChaca: torneo ? torneo.data.equipoChaca : "",
-    //   equipoMasa: torneo ? torneo.data.equipoMasa : "",
-    //   equipoSeba: torneo ? torneo.data.equipoMasa : "",
-    // },
-  });
+  const { register, handleSubmit, errors, control } = useForm({});
 
   const [filterConfig] = useState({
     ignoreCase: true,
@@ -170,212 +156,216 @@ function CrearTorneo({ onFinished, torneo }) {
     alert("update torneo");
   };
 
-  return (
-    <>
-      <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0">
-        <div className="rounded-t bg-white mb-0 px-6 py-6">
-          <div className="text-center flex justify-between">
-            <h6 className="text-gray-800 text-xl font-bold">Nuevo torneo</h6>
-            <button
-              onClick={() => alert("Lo tengo que hacer todavia esto...")}
-              className="bg-green-500 active:bg-gray-700 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-              type="button"
-            >
-              Crear nueva temporada
-            </button>
-          </div>
-        </div>
-        <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-          <form onSubmit={handleSubmit(torneo ? updateTorneo : createTorneo)}>
-            <div className="flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4 py-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Temporada
-                  </label>
-                  <Controller
-                    defaultValue={
-                      torneo
-                        ? {
-                            value: torneo.data.temporada,
-                            label: torneo.data.temporada,
-                          }
-                        : {
-                            value: sortedTemporadas[2].nombre,
-                            label: sortedTemporadas[2].nombre,
-                          }
-                    }
-                    name="temporada"
-                    control={control}
-                    options={temporadasOptions}
-                    placeholder="Elegir temporada"
-                    isClearable
-                    isSearchable
-                    filterOption={createFilter(filterConfig)}
-                    as={Select}
-                    rules={{ required: true }}
-                  />
-
-                  {errors.temporada && (
-                    <p className="font-bold text-red-500">
-                      La temporada es requerida
-                    </p>
-                  )}
-                </div>
-              </div>
-              <div className="w-full lg:w-6/12 px-4 py-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Número de torneo
-                  </label>
-                  <input
-                    type="number"
-                    id="numeroTorneo"
-                    name="numeroTorneo"
-                    className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
-                    defaultValue={numeroTorneo}
-                    ref={register({ required: true })}
-                  />
-
-                  {errors.numeroTorneo && (
-                    <p className="font-bold text-red-500">
-                      El número de torneo es requerido
-                    </p>
-                  )}
-                </div>
-              </div>
-              <div className="w-full lg:w-4/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Equipo chaca
-                  </label>
-                  <Controller
-                    defaultValue={
-                      torneo
-                        ? {
-                            value: torneo.data.equipoChaca,
-                            label: torneo.data.equipoChaca,
-                          }
-                        : ""
-                    }
-                    name="equipoChaca"
-                    control={control}
-                    options={getlistaEquipos()}
-                    placeholder="Elegir equipo"
-                    isClearable
-                    isSearchable
-                    filterOption={createFilter(filterConfig)}
-                    as={Select}
-                    rules={{ required: true }}
-                  />
-
-                  {errors.equipoChaca && (
-                    <p className="font-bold text-red-500">
-                      Chaca, elegí un equipo, bobo
-                    </p>
-                  )}
-                </div>
-              </div>
-              <div className="w-full lg:w-4/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Equipo masa
-                  </label>
-                  <Controller
-                    defaultValue={
-                      torneo
-                        ? {
-                            value: torneo.data.equipoMasa,
-                            label: torneo.data.equipoMasa,
-                          }
-                        : ""
-                    }
-                    name="equipoMasa"
-                    control={control}
-                    options={getlistaEquipos()}
-                    placeholder="Elegir equipo"
-                    isClearable
-                    isSearchable
-                    filterOption={createFilter(filterConfig)}
-                    as={Select}
-                    rules={{ required: true }}
-                  />
-
-                  {errors.equipoMasa && (
-                    <p className="font-bold text-red-500">
-                      Masa, elegí un equipo, bobo
-                    </p>
-                  )}
-                </div>
-              </div>
-              <div className="w-full lg:w-4/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Equipo Seba
-                  </label>
-                  <Controller
-                    defaultValue={
-                      torneo
-                        ? {
-                            value: torneo.data.equipoSeba,
-                            label: torneo.data.equipoSeba,
-                          }
-                        : ""
-                    }
-                    name="equipoSeba"
-                    control={control}
-                    options={getlistaEquipos()}
-                    placeholder="Elegir equipo"
-                    isClearable
-                    isSearchable
-                    filterOption={createFilter(filterConfig)}
-                    as={Select}
-                    rules={{ required: true }}
-                  />
-
-                  {errors.equipoSeba && (
-                    <p className="font-bold text-red-500">
-                      Seba, elegí un equipo, bobo
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="flex justify-center mt-6">
+  if (cantidadTorneos) {
+    return (
+      <>
+        <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0">
+          <div className="rounded-t bg-white mb-0 px-6 py-6">
+            <div className="text-center flex justify-between">
+              <h6 className="text-gray-800 text-xl font-bold">Nuevo torneo</h6>
               <button
-                className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1  ease-linear transition-all duration-150"
-                type="submit"
-              >
-                Crear torneo
-              </button>
-              <button
-                onClick={() => onFinished()}
-                className="bg-indigo-500 text-white active:bg-indigo-600 text-sm font-bold uppercase ml-2 px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1  ease-linear transition-all duration-150"
+                onClick={() => alert("Lo tengo que hacer todavia esto...")}
+                className="bg-green-500 active:bg-gray-700 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                 type="button"
               >
-                Cancelar
+                Crear nueva temporada
               </button>
             </div>
-          </form>
+          </div>
+          <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
+            <form onSubmit={handleSubmit(torneo ? updateTorneo : createTorneo)}>
+              <div className="flex flex-wrap">
+                <div className="w-full lg:w-6/12 px-4 py-4">
+                  <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Temporada
+                    </label>
+                    <Controller
+                      defaultValue={
+                        torneo
+                          ? {
+                              value: torneo.data.temporada,
+                              label: torneo.data.temporada,
+                            }
+                          : {
+                              value: sortedTemporadas[2].nombre,
+                              label: sortedTemporadas[2].nombre,
+                            }
+                      }
+                      name="temporada"
+                      control={control}
+                      options={temporadasOptions}
+                      placeholder="Elegir temporada"
+                      isClearable
+                      isSearchable
+                      filterOption={createFilter(filterConfig)}
+                      as={Select}
+                      rules={{ required: true }}
+                    />
+
+                    {errors.temporada && (
+                      <p className="font-bold text-red-500">
+                        La temporada es requerida
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="w-full lg:w-6/12 px-4 py-4">
+                  <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Número de torneo
+                    </label>
+                    <input
+                      type="number"
+                      id="numeroTorneo"
+                      name="numeroTorneo"
+                      className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full ease-linear transition-all duration-150"
+                      defaultValue={cantidadTorneos + 1}
+                      ref={register({ required: true })}
+                    />
+
+                    {errors.numeroTorneo && (
+                      <p className="font-bold text-red-500">
+                        El número de torneo es requerido
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="w-full lg:w-4/12 px-4">
+                  <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Equipo chaca
+                    </label>
+                    <Controller
+                      defaultValue={
+                        torneo
+                          ? {
+                              value: torneo.data.equipoChaca,
+                              label: torneo.data.equipoChaca,
+                            }
+                          : ""
+                      }
+                      name="equipoChaca"
+                      control={control}
+                      options={getlistaEquipos()}
+                      placeholder="Elegir equipo"
+                      isClearable
+                      isSearchable
+                      filterOption={createFilter(filterConfig)}
+                      as={Select}
+                      rules={{ required: true }}
+                    />
+
+                    {errors.equipoChaca && (
+                      <p className="font-bold text-red-500">
+                        Chaca, elegí un equipo, bobo
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="w-full lg:w-4/12 px-4">
+                  <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Equipo masa
+                    </label>
+                    <Controller
+                      defaultValue={
+                        torneo
+                          ? {
+                              value: torneo.data.equipoMasa,
+                              label: torneo.data.equipoMasa,
+                            }
+                          : ""
+                      }
+                      name="equipoMasa"
+                      control={control}
+                      options={getlistaEquipos()}
+                      placeholder="Elegir equipo"
+                      isClearable
+                      isSearchable
+                      filterOption={createFilter(filterConfig)}
+                      as={Select}
+                      rules={{ required: true }}
+                    />
+
+                    {errors.equipoMasa && (
+                      <p className="font-bold text-red-500">
+                        Masa, elegí un equipo, bobo
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="w-full lg:w-4/12 px-4">
+                  <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Equipo Seba
+                    </label>
+                    <Controller
+                      defaultValue={
+                        torneo
+                          ? {
+                              value: torneo.data.equipoSeba,
+                              label: torneo.data.equipoSeba,
+                            }
+                          : ""
+                      }
+                      name="equipoSeba"
+                      control={control}
+                      options={getlistaEquipos()}
+                      placeholder="Elegir equipo"
+                      isClearable
+                      isSearchable
+                      filterOption={createFilter(filterConfig)}
+                      as={Select}
+                      rules={{ required: true }}
+                    />
+
+                    {errors.equipoSeba && (
+                      <p className="font-bold text-red-500">
+                        Seba, elegí un equipo, bobo
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-center mt-6">
+                <button
+                  className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1  ease-linear transition-all duration-150"
+                  type="submit"
+                >
+                  Crear torneo
+                </button>
+                <button
+                  onClick={() => onFinished()}
+                  className="bg-indigo-500 text-white active:bg-indigo-600 text-sm font-bold uppercase ml-2 px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1  ease-linear transition-all duration-150"
+                  type="button"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  } else {
+    return <p>Cargando...</p>;
+  }
 }
 
 export default CrearTorneo;
