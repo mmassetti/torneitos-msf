@@ -35,6 +35,7 @@ const EditableCell = ({
       updateMyData(index, id, value);
     } else {
       e.target.value = "-";
+      setValue(e.target.value);
     }
   };
 
@@ -57,6 +58,7 @@ const EditableCell = ({
   const onClick = (e) => {
     if (isCellEditable(id) && e.target.value === "-") {
       e.target.value = "";
+      setValue(e.target.value);
     }
   };
 
@@ -67,6 +69,7 @@ const EditableCell = ({
 
   return (
     <input
+      style={{ maxWidth: "60px" }}
       value={value}
       onChange={onChange}
       onBlur={onBlur}
@@ -111,57 +114,6 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
   );
 
   return (
-    //TODO: OPCION 2
-    // <div style={{ paddingTop: "2rem" }}>
-    //   <table
-    //     {...getTableProps()}
-    //     className="min-w-full table-auto"
-    //     // className="flex-4 items-center bg-transparent border-collapse w-1/3 max-w-md"
-    //   >
-    //     <thead className="justify-between">
-    //       {headerGroups.map((headerGroup) => (
-    //         <tr {...headerGroup.getHeaderGroupProps()} className="bg-gray-800">
-    //           {headerGroup.headers.map((column) => (
-    //             <th
-    //               {...column.getHeaderProps()}
-    //               className={
-    //                 "px-16 py-2 text-white"
-    //                 // "bg-gray-100 text-gray-600 border-gray-200 px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left "
-    //               }
-    //             >
-    //               {column.render("Header")}
-    //             </th>
-    //           ))}
-    //         </tr>
-    //       ))}
-    //     </thead>
-    //     <tbody {...getTableBodyProps()} className="bg-gray-200">
-    //       {page.map((row, i) => {
-    //         prepareRow(row);
-    //         return (
-    //           <tr
-    //             {...row.getRowProps()}
-    //             className="bg-white border-4 border-gray-200"
-    //           >
-    //             {row.cells.map((cell) => {
-    //               return (
-    //                 <td
-    //                   {...cell.getCellProps()}
-    //                   className="px-16 py-2 border-t-0 algin-middle border-l-0 border-r-0 whitespace-no-wrap"
-    //                   // className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4  "
-    //                 >
-    //                   {cell.render("Cell")}
-    //                 </td>
-    //               );
-    //             })}
-    //           </tr>
-    //         );
-    //       })}
-    //     </tbody>
-    //   </table>
-    // </div>
-
-    //TODO: OPCION 3
     <div id="tableDiv">
       <table
         {...getTableProps()}
@@ -192,10 +144,9 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
                   return (
                     <td
                       {...cell.getCellProps()}
-                      // className="border-t-0 px-6 text-center align-middle border-l-0 border-r-0  whitespace-no-wrap "
+                      className="border-t-0 px-6 text-center align-middle border-l-0 border-r-0  whitespace-no-wrap "
                     >
-                      {" "}
-                      {cell.render("Cell")}{" "}
+                      {cell.render("Cell")}
                     </td>
                   );
                 })}

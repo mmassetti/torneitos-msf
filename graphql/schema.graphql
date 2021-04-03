@@ -16,9 +16,9 @@ type EstadisticaTabla {
 }
 
 enum Jugador {
-  CHACA
-  MASA
-  SEBA
+  Chaca
+  Masa
+  Seba
 }
 
 type Enfrentamiento {

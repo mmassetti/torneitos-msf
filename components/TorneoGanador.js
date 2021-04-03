@@ -6,12 +6,16 @@ import {
   RESET_ESTADISTICA_TABLA,
   UPDATE_TORNEO,
 } from "../graphql/mutations";
+import useSound from "use-sound";
+
+import daleCampeon from "../assets/audio/campeon.mp3";
 
 export default function TorneoGanador({ torneoData }) {
   const [tablasArray, setTablasArray] = useState([]);
   const [torneoIniciado, setTorneoIniciado] = useState(false);
   const [torneoTerminado, setTorneoTerminado] = useState(false);
   const [yaPuedeHaberCampeon, setYaPuedeHaberCampeon] = useState(false);
+  const [play] = useSound(daleCampeon, { volume: 0.25 });
 
   useEffect(() => {
     setTablasArray(torneoData.tablas.data);
@@ -32,11 +36,37 @@ export default function TorneoGanador({ torneoData }) {
     );
 
     setTorneoTerminado(torneoData.campeon && torneoData.campeon !== "");
-    setYaPuedeHaberCampeon(
-      resultadosArray[3]?.anotadosGolesJugador1 &&
-        resultadosArray[3]?.anotadosGolesJugador2 //Ya se jugó al menos el partido 4)
-    );
+
+    //Chequeo si hay al menos 4 partidos
+    let hayAlMenos4Partidos = false;
+    let nroActualPartidos = 0;
+
+    // for (var i = 0; i < arrayToCheck.length; i++) {
+    //   if (isArrayValid && !(arrayToCheck[i].number > 1)) {
+    //     isArrayValid = false;
+    //   }
+    // }
+
+    for (let i = 0; i < resultadosArray.length; i++) {
+      if (
+        resultadosArray[i].anotadosGolesJugador1 &&
+        resultadosArray[i].anotadosGolesJugador2
+      ) {
+        nroActualPartidos++;
+        if (nroActualPartidos === 4) {
+          hayAlMenos4Partidos = true;
+          break;
+        }
+      }
+    }
+
+    setYaPuedeHaberCampeon(hayAlMenos4Partidos);
   }, [tablasArray, torneoData]);
+
+  const capitalize = (s) => {
+    if (typeof s !== "string") return "";
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
 
   const showModal = async () => {
     const { value: formValues } = await Swal.fire({
@@ -57,9 +87,9 @@ export default function TorneoGanador({ torneoData }) {
       focusConfirm: false,
       preConfirm: () => {
         return [
-          document.getElementById("campeon").value.toUpperCase(),
-          document.getElementById("segundo").value.toUpperCase(),
-          document.getElementById("tercero").value.toUpperCase(),
+          capitalize(document.getElementById("campeon").value),
+          capitalize(document.getElementById("segundo").value),
+          capitalize(document.getElementById("tercero").value),
         ];
       },
     });
@@ -71,6 +101,10 @@ export default function TorneoGanador({ torneoData }) {
       let tercero = posicionesTorneo[2];
 
       Swal.fire("Felicitaciones " + campeon + "! 🏆");
+
+      setTimeout(() => {
+        play();
+      }, 1000);
 
       //Update torneo collection
       await graphQLClient.request(UPDATE_TORNEO, {

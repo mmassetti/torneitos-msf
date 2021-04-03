@@ -80,13 +80,13 @@ function CrearTorneo({ onFinished, torneo }) {
   async function createEstadisticasTablas() {
     const responsesCreateEstadisticaTabla = await Promise.all([
       graphQLClient.request(CREATE_ESTADISTICA_TABLA, {
-        jugador: "CHACA",
+        jugador: "Chaca",
       }),
       graphQLClient.request(CREATE_ESTADISTICA_TABLA, {
-        jugador: "MASA",
+        jugador: "Masa",
       }),
       graphQLClient.request(CREATE_ESTADISTICA_TABLA, {
-        jugador: "SEBA",
+        jugador: "Seba",
       }),
     ]);
 
@@ -101,33 +101,33 @@ function CrearTorneo({ onFinished, torneo }) {
   async function createEnfrentamientos() {
     const responsesCreateEnfrentamientos = await Promise.all([
       graphQLClient.request(CREATE_ENFRENTAMIENTO, {
-        jugador1: "CHACA",
-        jugador2: "MASA",
+        jugador1: "Chaca",
+        jugador2: "Masa",
         numeroEnfrentamiento: 1,
       }),
       graphQLClient.request(CREATE_ENFRENTAMIENTO, {
-        jugador1: "CHACA",
-        jugador2: "SEBA",
+        jugador1: "Chaca",
+        jugador2: "Seba",
         numeroEnfrentamiento: 2,
       }),
       graphQLClient.request(CREATE_ENFRENTAMIENTO, {
-        jugador1: "MASA",
-        jugador2: "SEBA",
+        jugador1: "Masa",
+        jugador2: "Seba",
         numeroEnfrentamiento: 3,
       }),
       graphQLClient.request(CREATE_ENFRENTAMIENTO, {
-        jugador1: "MASA",
-        jugador2: "CHACA",
+        jugador1: "Masa",
+        jugador2: "Chaca",
         numeroEnfrentamiento: 4,
       }),
       graphQLClient.request(CREATE_ENFRENTAMIENTO, {
-        jugador1: "SEBA",
-        jugador2: "CHACA",
+        jugador1: "Seba",
+        jugador2: "Chaca",
         numeroEnfrentamiento: 5,
       }),
       graphQLClient.request(CREATE_ENFRENTAMIENTO, {
-        jugador1: "MASA",
-        jugador2: "SEBA",
+        jugador1: "Seba",
+        jugador2: "Masa",
         numeroEnfrentamiento: 6,
       }),
     ]);
