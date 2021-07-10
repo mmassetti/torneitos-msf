@@ -18,8 +18,8 @@ export default function TorneoGanador({ torneoData }) {
   const [play] = useSound(daleCampeon, { volume: 0.25 });
 
   useEffect(() => {
-    setTablasArray(torneoData.tablas.data);
-    let resultadosArray = torneoData.resultados.data.sort((a, b) =>
+    setTablasArray(torneoData?.tablas.data);
+    let resultadosArray = torneoData?.resultados.data.sort((a, b) =>
       a.numeroEnfrentamiento > b.numeroEnfrentamiento ? 1 : -1
     );
 
@@ -35,7 +35,7 @@ export default function TorneoGanador({ torneoData }) {
         tablasArray[2]?.puntos !== null
     );
 
-    setTorneoTerminado(torneoData.campeon && torneoData.campeon !== "");
+    setTorneoTerminado(torneoData?.campeon && torneoData?.campeon !== "");
 
     //Chequeo si hay al menos 4 partidos
     let hayAlMenos4Partidos = false;
@@ -108,7 +108,7 @@ export default function TorneoGanador({ torneoData }) {
 
       //Update torneo collection
       await graphQLClient.request(UPDATE_TORNEO, {
-        id: torneoData._id,
+        id: torneoData?._id,
         campeon: campeon,
         segundo: segundo,
         tercero: tercero,
@@ -120,7 +120,8 @@ export default function TorneoGanador({ torneoData }) {
     try {
       //Update enfrentamientos
       let enfrentamientosUpdate = [];
-      torneoData.resultados.data.forEach((resultado) => {
+      // eslint-disable-next-line no-unused-expressions
+      torneoData?.resultados.data.forEach((resultado) => {
         enfrentamientosUpdate.push(
           graphQLClient.request(RESET_ENFRENTAMIENTO, {
             id: resultado._id,
@@ -136,7 +137,8 @@ export default function TorneoGanador({ torneoData }) {
 
       //Update tablas
       let estadisticasTablasUpdate = [];
-      torneoData.tablas.data.forEach((tabla) => {
+      // eslint-disable-next-line no-unused-expressions
+      torneoData?.tablas.data.forEach((tabla) => {
         estadisticasTablasUpdate.push(
           graphQLClient.request(RESET_ESTADISTICA_TABLA, {
             id: tabla._id,
@@ -206,7 +208,7 @@ export default function TorneoGanador({ torneoData }) {
           </div>
           <div className="text-center mt-2">
             <h3 className="text-yellow-400 text-xl font-bold leading-normal mb-2">
-              {torneoData.campeon ? torneoData.campeon : "-"}
+              {torneoData?.campeon ? torneoData?.campeon : "-"}
             </h3>
 
             <div className="mb-2 text-white mt-5">
@@ -217,7 +219,7 @@ export default function TorneoGanador({ torneoData }) {
                 </span>
               </span>{" "}
               <span className="text-orange-500">
-                {torneoData.segundo ? torneoData.segundo : "-"}
+                {torneoData?.segundo ? torneoData?.segundo : "-"}
               </span>
             </div>
             <div className="mb-2 text-white">
@@ -228,7 +230,7 @@ export default function TorneoGanador({ torneoData }) {
                 </span>
               </span>{" "}
               <span className="text-orange-500">
-                {torneoData.tercero ? torneoData.tercero : "-"}
+                {torneoData?.tercero ? torneoData?.tercero : "-"}
               </span>
             </div>
           </div>

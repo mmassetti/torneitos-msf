@@ -2,13 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useTable, usePagination } from "react-table";
 import Swal from "sweetalert2";
 
-const isCellEditable = (columnName) => {
-  if (columnName === "local" || columnName === "visitante") {
-    return false;
-  }
-  return true;
-};
-
 // Create an editable cell renderer
 const EditableCell = ({
   value: initialValue,
@@ -21,19 +14,27 @@ const EditableCell = ({
   const [resultSavedWithEnter, setResultSavedWithEnter] = useState(false);
 
   const onChange = (e) => {
-    if (isCellEditable(id)) {
-      setValue(e.target.value);
-    } else {
-      Swal.fire("No seas boludo", "No podes cambiar esto perro", "warning");
-    }
+    setValue(e.target.value);
   };
+
+  //TODO: Si edito un gol del local, tengo que resetear el visitante tambien, como asi tambien la tabla de resultados?
+  //¿O prohibo que se edite la celda si ya puse un valor y obligo a resetear el torneo
+  //(cartelito: "todavia no soy inteligente como para hacer esta operacion, tengo que resetear todo. Aceptar? ")
 
   const validateAndSaveResult = (e) => {
     let isValidNumber = /^-?\d+$/.test(value);
 
-    if (isValidNumber) {
+    if (value !== initialValue && isValidNumber) {
       updateMyData(index, id, value);
-    } else {
+
+      // if (id === "golesLocal") {
+      //   let golesLocal = value;
+      //   console.log(
+      //     "🚀 ~ file: ResultadosTable.js ~ line 44 ~ validateAndSaveResult ~ golesLocal",
+      //     golesLocal
+      //   );
+      // }
+    } else if (!isValidNumber) {
       e.target.value = "-";
       setValue(e.target.value);
     }
@@ -41,7 +42,7 @@ const EditableCell = ({
 
   // We'll update the external data when the input is blurred or when enter is pressed
   const onBlur = (e) => {
-    if (!resultSavedWithEnter && isCellEditable(id)) {
+    if (!resultSavedWithEnter) {
       validateAndSaveResult(e);
     }
   };
@@ -56,9 +57,15 @@ const EditableCell = ({
 
   // Remove "-" on click
   const onClick = (e) => {
-    if (isCellEditable(id) && e.target.value === "-") {
+    if (e.target.value === "-") {
       e.target.value = "";
       setValue(e.target.value);
+    } else {
+      Swal.fire(
+        "No va a funcionar",
+        "Todavía no funciona este editar, mala mía. No lo hagas o se va a romper",
+        "warning"
+      );
     }
   };
 
@@ -69,6 +76,7 @@ const EditableCell = ({
 
   return (
     <input
+      // className={backgroundColors[0][(0, 0)]}
       style={{ maxWidth: "60px" }}
       value={value}
       onChange={onChange}
@@ -140,7 +148,7 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
+                {row.cells.map((cell, j) => {
                   return (
                     <td
                       {...cell.getCellProps()}

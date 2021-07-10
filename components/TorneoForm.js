@@ -27,7 +27,7 @@ function CrearTorneo({ onFinished, torneo }) {
     async function getNumeroTorneosTemporada() {
       const torneosParaTemporada = await graphQLClient.request(
         GET_NUMERO_TORNEOS_TEMPORADA,
-        { nombre: "2018/2019" }
+        { nombre: "2021" }
       );
 
       setCantidadTorneos(
@@ -132,13 +132,20 @@ function CrearTorneo({ onFinished, torneo }) {
 
       let enfrentamientos = await createEnfrentamientos();
 
-      //TODO: El connect de la temporada debe venir de la base de datos
+      let temporadaInfo = await graphQLClient.request(
+        GET_NUMERO_TORNEOS_TEMPORADA,
+        { nombre: data?.temporada?.value }
+      );
+
+      let temporadaId = temporadaInfo?.temporadaByName._id;
+
       await graphQLClient.request(CREATE_TORNEO, {
         numeroTorneo: parseInt(data.numeroTorneo),
         equipoChaca: data.equipoChaca.value,
         equipoMasa: data.equipoMasa.value,
         equipoSeba: data.equipoSeba.value,
-        temporada: { connect: "294253246084547075" },
+        // temporada: { connect: "294253246084547075" },
+        temporada: { connect: temporadaId },
         campeon: "",
         segundo: "",
         tercero: "",
@@ -146,7 +153,7 @@ function CrearTorneo({ onFinished, torneo }) {
         tablas: { connect: estadisticasTablas },
       });
 
-      onFinished();
+      // onFinished();
     } catch (err) {
       console.error("ERROR TorneoForm: ", err);
     }
@@ -156,7 +163,7 @@ function CrearTorneo({ onFinished, torneo }) {
     alert("update torneo");
   };
 
-  if (cantidadTorneos) {
+  if (cantidadTorneos || cantidadTorneos >= 0) {
     return (
       <>
         <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0">

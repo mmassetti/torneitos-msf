@@ -193,3 +193,27 @@ export const RESET_ESTADISTICA_TABLA = gql`
     }
   }
 `;
+
+export const DELETE_ESTADISTICA_TABLA = gql`
+  mutation DeleteEstadisticaTabla($id: ID!) {
+    deleteEstadisticaTabla(id: $id) {
+      _id
+    }
+  }
+`;
+
+export const DELETE_ENFRENTAMIENTO = gql`
+  mutation DeleteEnfrentamiento($id: ID!) {
+    deleteEnfrentamiento(id: $id) {
+      _id
+    }
+  }
+`;
+
+export const DELETE_TORNEO = gql`
+  mutation DeleteTorneo($id: ID!) {
+    deleteTorneo(id: $id) {
+      _id
+    }
+  }
+`;

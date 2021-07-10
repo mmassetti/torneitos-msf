@@ -14,6 +14,7 @@ export const GET_TEMPORADAS = gql`
 export const GET_NUMERO_TORNEOS_TEMPORADA = gql`
   query GetTorneosParaTemporada($nombre: String!) {
     temporadaByName(nombre: $nombre) {
+      _id
       nombre
       torneos {
         data {

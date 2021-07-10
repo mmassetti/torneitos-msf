@@ -4,7 +4,12 @@ import EquiposJugadores from "./EquiposJugadores";
 import TorneoPuntajes from "./TorneoPuntajes";
 
 import TorneoResultados from "./TorneoResultados";
-import { UPDATE_ESTADISTICA_TABLA } from "../graphql/mutations";
+import {
+  UPDATE_ESTADISTICA_TABLA,
+  DELETE_ENFRENTAMIENTO,
+  DELETE_ESTADISTICA_TABLA,
+  DELETE_TORNEO,
+} from "../graphql/mutations";
 import useSWR from "swr";
 import { GET_INFO_TORNEO } from "../graphql/queries";
 
@@ -22,6 +27,42 @@ export default function Torneo({ onUpdateTorneo, id }) {
   if (error) {
     console.log("ERROR TorneoPuntajes: ", error);
     return <div>Error al cargar los datos del torneo </div>;
+  }
+
+  async function handleTorneoDelete() {
+    //mutation to delete "tablas"
+    let tablasEstadisticasToDelete = [];
+
+    // eslint-disable-next-line no-unused-expressions
+    data?.findTorneoByID.tablas.data.map((tabla) => {
+      tablasEstadisticasToDelete.push(
+        graphQLClient.request(DELETE_ESTADISTICA_TABLA, {
+          id: tabla._id,
+        })
+      );
+      return null;
+    });
+
+    await Promise.all([tablasEstadisticasToDelete]);
+
+    //mutation to delete "resultados"
+    let resultadosToDelete = [];
+    // eslint-disable-next-line no-unused-expressions
+    data?.findTorneoByID.resultados.data.map((resultado) => {
+      resultadosToDelete.push(
+        graphQLClient.request(DELETE_ENFRENTAMIENTO, {
+          id: resultado._id,
+        })
+      );
+      return null;
+    });
+
+    await Promise.all([resultadosToDelete]);
+
+    //mutation to delete torneo
+    await graphQLClient.request(DELETE_TORNEO, {
+      id: data?.findTorneoByID._id,
+    });
   }
 
   async function onUpdate(
@@ -165,10 +206,24 @@ export default function Torneo({ onUpdateTorneo, id }) {
   return (
     <>
       <div className="divide-y-4 divide-yellow-600 divide-dashed">
+        <div>
+          <div className="relative h-32 w-32 ...">
+            <div className="absolute top-0 right-0 h-16 w-16">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleTorneoDelete();
+                }}
+              >
+                <i className={"fas fa-trash  text-red-500"}></i>
+              </button>{" "}
+            </div>
+          </div>
+        </div>
         <h3 className="w-full md:w-4/12 px-4 mr-auto ml-auto text-3xl mb-2 mt-4 font-semibold leading-normal text-center">
           Torneo{" "}
           <span className={"font-bold text-blue-600"}>
-            #{data?.findTorneoByID.numeroTorneo}
+            #{data?.findTorneoByID?.numeroTorneo}
           </span>
         </h3>
         <section className="text-black body-font">

@@ -40,6 +40,9 @@ export default function TorneoResultados({ torneoData, onUpdate }) {
       {
         Header: "Local",
         accessor: "local", // accessor is the "key" in the data
+        Cell: function Cell(cell) {
+          return <span>{cell.value}</span>;
+        },
       },
       {
         Header: "",
@@ -52,6 +55,9 @@ export default function TorneoResultados({ torneoData, onUpdate }) {
       {
         Header: "Visitante",
         accessor: "visitante",
+        Cell: function Cell(cell) {
+          return <span>{cell.value}</span>;
+        },
       },
     ],
     []
@@ -92,7 +98,8 @@ export default function TorneoResultados({ torneoData, onUpdate }) {
   // When our cell renderer calls updateMyData, we'll use
   // the rowIndex, columnId and new value to update the
   // original data
-  const updateMyData = async (rowIndex, columnId, value) => {
+
+  const updateMyData = async (rowIndex, columnId, value, backgroundColors) => {
     let esLocal = columnId === "golesLocal";
     let numeroEnfrentamiento = rowIndex + 1;
     let goles = value;
@@ -123,6 +130,7 @@ export default function TorneoResultados({ torneoData, onUpdate }) {
       data={data}
       updateMyData={updateMyData}
       skipPageReset={skipPageReset}
+      //colores
     />
   );
 }

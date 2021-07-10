@@ -7,6 +7,7 @@ import { graphQLClient } from "../utils/grahpql-client";
 function TorneosList({ nombre }) {
   const fetcher = async (query) =>
     await graphQLClient.request(query, { nombre });
+
   const { data, loading, error } = useSWR(
     nombre ? [GET_TORNEOS_PARA_TEMPORADA, nombre] : null,
     fetcher
