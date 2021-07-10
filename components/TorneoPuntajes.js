@@ -52,6 +52,18 @@ export default function TorneoPuntajes({ id }) {
     }
   };
 
+  const showDifGoles = (difGoles) => {
+    if (difGoles || difGoles === 0) {
+      if (difGoles > 0) {
+        return "+" + difGoles;
+      } else {
+        return difGoles;
+      }
+    } else {
+      return "-";
+    }
+  };
+
   //TODO: Refactor : the classNames are always the same..
   return (
     <div>
@@ -115,6 +127,13 @@ export default function TorneoPuntajes({ id }) {
             >
               GC
             </th>
+            <th
+              className={
+                "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left bg-gray-100 text-gray-600 border-gray-200"
+              }
+            >
+              DIF
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -152,6 +171,9 @@ export default function TorneoPuntajes({ id }) {
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4   ">
                   {tabla.gc || tabla.gc == 0 ? tabla.gc : "-"}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4   ">
+                  {showDifGoles(tabla.difGoles)}
                 </td>
               </tr>
             );

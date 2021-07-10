@@ -12,6 +12,7 @@ type EstadisticaTabla {
   pp: Int
   gf: Int
   gc: Int
+  difGoles: Int
   torneo: Torneo!
 }
 
