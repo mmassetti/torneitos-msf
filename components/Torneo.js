@@ -227,28 +227,24 @@ export default function Torneo({ onUpdateTorneo, id }) {
           </span>
         </h3>
         <section className="text-black body-font">
-          <div className="container px-5 py-14 mx-auto">
-            <div className="flex">
-              {/* 1) Equipos de los jugadores */}
+          <div className="flex">
+            <div className="flex-col w-1/2 ">
+              <div className="p-4 md:w-1/3 ml-24 ">
+                <TorneoResultados
+                  torneoData={data?.findTorneoByID}
+                  onUpdate={onUpdate}
+                />
+              </div>{" "}
               <div
-                className="flex-1 p-4 md:w-1/3 bg-custom bg-opacity-50 shadow-lg rounded-lg mt-3"
+                className="p-4 w-1/2  ml-36 text-center bg-custom bg-opacity-50 shadow-lg rounded-lg mt-3  "
                 style={{ maxHeight: "9rem" }}
               >
                 <EquiposJugadores
                   torneoData={data ? data.findTorneoByID : []}
                 />
               </div>
-
-              {/* 2) Tabla Enfrentamientos */}
-              <div className="flex-1 p-4 md:w-1/3 ml-20">
-                <TorneoResultados
-                  torneoData={data?.findTorneoByID}
-                  onUpdate={onUpdate}
-                />
-              </div>
-
-              {/* 3) Tabla Resultados Puntajes */}
-
+            </div>
+            <div className="w-1/2">
               {id ? (
                 <div className="flex-1 p-4 md:w-1/3">
                   <TorneoPuntajes id={id} />
@@ -258,6 +254,32 @@ export default function Torneo({ onUpdateTorneo, id }) {
               )}
             </div>
           </div>
+          {/* <div className="container py-14 mx-auto"> */}
+          {/* <div className="flex mx-auto container">
+            <div
+              className="p-4 md:w-1/3 w-1/3 bg-custom bg-opacity-50 shadow-lg rounded-lg mt-3 "
+              style={{ maxHeight: "9rem" }}
+            >
+              <EquiposJugadores torneoData={data ? data.findTorneoByID : []} />
+            </div>
+
+            <div className="flex-1 p-4 md:w-1/3 ml-20">
+              <TorneoResultados
+                torneoData={data?.findTorneoByID}
+                onUpdate={onUpdate}
+              />
+            </div>
+
+
+            {id ? (
+              <div className="flex-1 p-4 md:w-1/3">
+                <TorneoPuntajes id={id} />
+              </div>
+            ) : (
+              <p>Cargando...</p>
+            )}
+          </div> */}
+          {/* </div> */}
         </section>
         <hr className="mt-6 border-b-1 border-gray-400" />
       </div>

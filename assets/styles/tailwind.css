@@ -2107,8 +2107,19 @@ video {
   margin-top: 5rem;
 }
 
-.ml-20 {
-  margin-left: 5rem;
+.ml-24 {
+  margin-left: 6rem;
+}
+.ml-28 {
+  margin-left: 7rem;
+}
+
+.ml-32 {
+  margin-left: 8rem;
+}
+
+.ml-36 {
+  margin-left: 9rem;
 }
 
 .mt-24 {
