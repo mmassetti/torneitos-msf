@@ -258,7 +258,7 @@ export default function Torneo({ onUpdateTorneo, id }) {
                 />
               </div>
             </div>
-            <div className="w-1/2">
+            <div className="w-3/4">
               {id ? (
                 <div className="flex-1 p-4">
                   <TorneoPuntajes id={id} />
