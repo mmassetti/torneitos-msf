@@ -63,6 +63,7 @@ export const GET_TORNEOS_PARA_TEMPORADA = gql`
               pp
               gf
               gc
+              difGoles
             }
           }
         }
@@ -109,6 +110,7 @@ export const GET_INFO_TORNEO = gql`
           pp
           gf
           gc
+          difGoles
         }
       }
     }

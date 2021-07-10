@@ -125,6 +125,7 @@ export const UPDATE_ESTADISTICA_TABLA = gql`
     $pg: Int!
     $pe: Int!
     $pp: Int!
+    $difGoles: Int!
   ) {
     updateEstadisticaTabla(
       id: $id
@@ -137,6 +138,7 @@ export const UPDATE_ESTADISTICA_TABLA = gql`
         pg: $pg
         pe: $pe
         pp: $pp
+        difGoles: $difGoles
       }
     ) {
       _id
@@ -176,6 +178,7 @@ export const RESET_ESTADISTICA_TABLA = gql`
     $gf: Int
     $gc: Int
     $puntos: Int
+    $difGoles: Int
   ) {
     partialUpdateEstadisticaTabla(
       id: $id
@@ -187,6 +190,7 @@ export const RESET_ESTADISTICA_TABLA = gql`
         gf: $gf
         gc: $gc
         puntos: $puntos
+        difGoles: $difGoles
       }
     ) {
       _id

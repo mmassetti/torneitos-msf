@@ -149,6 +149,7 @@ export default function TorneoGanador({ torneoData }) {
             gf: null,
             gc: null,
             puntos: null,
+            digGoles: null,
           })
         );
       });

@@ -144,16 +144,20 @@ export default function Torneo({ onUpdateTorneo, id }) {
         puntosOtroJugador = 1;
       }
 
+      let golesAFavorActualizadosJugadorActual = jugadorActual.gf
+        ? jugadorActual.gf + parseInt(golesJugadorActual)
+        : parseInt(golesJugadorActual);
+
+      let golesEnContraActualizadosJugadorActual = jugadorActual.gc
+        ? parseInt(jugadorActual.gc) + parseInt(golesOtroJugador)
+        : parseInt(golesOtroJugador);
+
       await graphQLClient.request(UPDATE_ESTADISTICA_TABLA, {
         id: idToEditJugadorActual,
         jugador: nombreJugadorActual,
         pj: jugadorActual.pj ? parseInt(jugadorActual.pj) + 1 : 1,
-        gf: jugadorActual.gf
-          ? jugadorActual.gf + parseInt(golesJugadorActual)
-          : parseInt(golesJugadorActual),
-        gc: jugadorActual.gc
-          ? parseInt(jugadorActual.gc) + parseInt(golesOtroJugador)
-          : parseInt(golesOtroJugador),
+        gf: golesAFavorActualizadosJugadorActual,
+        gc: golesEnContraActualizadosJugadorActual,
         puntos: jugadorActual.puntos
           ? parseInt(jugadorActual.puntos) + parseInt(puntosJugadorActual)
           : parseInt(puntosJugadorActual),
@@ -166,19 +170,26 @@ export default function Torneo({ onUpdateTorneo, id }) {
         pp: jugadorActual.pp
           ? parseInt(jugadorActual.pp) + parseInt(ppJugadorActual)
           : parseInt(ppJugadorActual),
+        difGoles:
+          golesAFavorActualizadosJugadorActual -
+          golesEnContraActualizadosJugadorActual,
       });
+
+      let golesAFavorActualizadosOtroJugador = otroJugador.gf
+        ? parseInt(otroJugador.gf) + parseInt(golesOtroJugador)
+        : parseInt(golesOtroJugador);
+
+      let golesEnContraActualizadosOtroJugador = otroJugador.gc
+        ? parseInt(otroJugador.gc) + parseInt(golesJugadorActual)
+        : parseInt(golesJugadorActual);
 
       //2) Actualizo tabla jugador anterior (probablemente el local)
       await graphQLClient.request(UPDATE_ESTADISTICA_TABLA, {
         id: idToEditOtroJugador,
         jugador: nombreOtroJugador,
         pj: otroJugador.pj ? parseInt(otroJugador.pj) + 1 : 1,
-        gf: otroJugador.gf
-          ? parseInt(otroJugador.gf) + parseInt(golesOtroJugador)
-          : parseInt(golesOtroJugador),
-        gc: otroJugador.gc
-          ? parseInt(otroJugador.gc) + parseInt(golesJugadorActual)
-          : parseInt(golesJugadorActual),
+        gf: golesAFavorActualizadosOtroJugador,
+        gc: golesEnContraActualizadosOtroJugador,
         puntos: otroJugador.puntos
           ? parseInt(otroJugador.puntos) + parseInt(puntosOtroJugador)
           : parseInt(puntosOtroJugador),
@@ -191,6 +202,9 @@ export default function Torneo({ onUpdateTorneo, id }) {
         pp: otroJugador.pp
           ? parseInt(otroJugador.pp) + parseInt(ppOtroJugador)
           : parseInt(ppOtroJugador),
+        difGoles:
+          golesAFavorActualizadosOtroJugador -
+          golesEnContraActualizadosOtroJugador,
       });
 
       localStorage.removeItem("golesOtroJugador");
