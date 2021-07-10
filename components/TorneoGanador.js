@@ -167,8 +167,8 @@ export default function TorneoGanador({ torneoData }) {
   return (
     <>
       <div
-        className="relative flex flex-col min-w-0 break-words bg-gray-900 w-1/2 mb-6 shadow-xl rounded-lg mt-4"
-        style={{ marginLeft: "4rem" }}
+        className="justify-center text-center align-middle w-1/2  flex flex-col min-w-0 break-words bg-gray-900  mb-6 shadow-xl rounded-lg mt-4"
+        style={{ marginLeft: "8rem" }}
       >
         {torneoIniciado && !torneoTerminado ? (
           <>
