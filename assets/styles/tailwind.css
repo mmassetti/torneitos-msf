@@ -2670,6 +2670,10 @@ video {
   left: auto;
 }
 
+.margin-auto {
+  margin: auto;
+}
+
 .-right-100 {
   right: -100%;
 }

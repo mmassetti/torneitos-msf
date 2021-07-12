@@ -4,10 +4,11 @@ import TorneosList from "../TorneosList";
 import useSWR from "swr";
 import { graphQLClient } from "../../utils/grahpql-client";
 import { GET_TEMPORADAS } from "../../graphql/queries";
+import HistorialPartidosEntreSi from "../HistorialPartidosEntreSi/HistorialPartidosEntreSi";
 
 const fetcher = async (query) => await graphQLClient.request(query);
 
-const Tabs = () => {
+const Tabs = ({ mode }) => {
   const [openTab, setOpenTab] = useState(1);
 
   const { data, loading, error } = useSWR(GET_TEMPORADAS, fetcher);
@@ -69,7 +70,15 @@ const Tabs = () => {
                         id={`#link${index + 1}`}
                         key={temporada._id}
                       >
-                        <TorneosList nombre={temporada.nombre} />
+                        {mode === "estadisticas" ? (
+                          <HistorialPartidosEntreSi
+                            historialData={
+                              temporada.historialPartidosEntreSi.data
+                            }
+                          />
+                        ) : (
+                          <TorneosList nombre={temporada.nombre} />
+                        )}
                       </div>
                     );
                   })}

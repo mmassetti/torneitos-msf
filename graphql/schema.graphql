@@ -1,6 +1,7 @@
 type Temporada {
   nombre: String! @unique
   torneos: [Torneo!] @relation
+  historialPartidosEntreSi: [HistorialPartidosEntreSi!] @relation
 }
 
 type EstadisticaTabla {
@@ -44,6 +45,15 @@ type Torneo {
   segundo: String
   tercero: String
   resultados: [Enfrentamiento] @relation
+}
+
+type HistorialPartidosEntreSi {
+  temporada: Temporada!
+  jugador1: Jugador
+  jugador2: Jugador
+  victoriasJugador1: Int
+  victoriasJugador2: Int
+  empates: Int
 }
 
 type Query {

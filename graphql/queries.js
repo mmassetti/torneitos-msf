@@ -6,6 +6,19 @@ export const GET_TEMPORADAS = gql`
       data {
         _id
         nombre
+        historialPartidosEntreSi {
+          data {
+            _id
+            jugador1
+            jugador2
+            victoriasJugador1
+            victoriasJugador2
+            empates
+            temporada {
+              nombre
+            }
+          }
+        }
       }
     }
   }
