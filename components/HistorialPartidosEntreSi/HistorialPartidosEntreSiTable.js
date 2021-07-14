@@ -32,7 +32,7 @@ function HistorialPartidosEntreSiTable({ columns, data, title }) {
             )}
           </div>
         );
-      } else {
+      } else if (data[0]) {
         return (
           <div>
             {content(
@@ -55,7 +55,7 @@ function HistorialPartidosEntreSiTable({ columns, data, title }) {
             )}
           </div>
         );
-      } else {
+      } else if (data[0]) {
         return (
           <div>
             {content(
@@ -83,7 +83,7 @@ function HistorialPartidosEntreSiTable({ columns, data, title }) {
             )}
           </div>
         );
-      } else {
+      } else if (data[1]) {
         return (
           <div>
             {content(
@@ -106,7 +106,7 @@ function HistorialPartidosEntreSiTable({ columns, data, title }) {
             )}
           </div>
         );
-      } else {
+      } else if (data[1]) {
         return (
           <div>
             {content(
@@ -134,7 +134,7 @@ function HistorialPartidosEntreSiTable({ columns, data, title }) {
             )}
           </div>
         );
-      } else {
+      } else if (data[2]) {
         return (
           <div>
             {content(
@@ -157,7 +157,7 @@ function HistorialPartidosEntreSiTable({ columns, data, title }) {
             )}
           </div>
         );
-      } else {
+      } else if (data[2]) {
         return (
           <div>
             {content(
