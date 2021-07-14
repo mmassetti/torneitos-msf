@@ -6,6 +6,44 @@ export const GET_TEMPORADAS = gql`
       data {
         _id
         nombre
+        torneos {
+          data {
+            _id
+            numeroTorneo
+            equipoMasa
+            equipoChaca
+            equipoSeba
+            campeon
+            segundo
+            tercero
+            resultados {
+              data {
+                _id
+                jugador1
+                jugador2
+                golesJugador1
+                golesJugador2
+                numeroEnfrentamiento
+                anotadosGolesJugador1
+                anotadosGolesJugador2
+              }
+            }
+            tablas {
+              data {
+                _id
+                jugador
+                puntos
+                pj
+                pg
+                pe
+                pp
+                gf
+                gc
+                difGoles
+              }
+            }
+          }
+        }
         historialPartidosEntreSi {
           data {
             _id
@@ -81,6 +119,16 @@ export const GET_TORNEOS_PARA_TEMPORADA = gql`
           }
         }
       }
+      historialPartidosEntreSi {
+        data {
+          _id
+          jugador1
+          jugador2
+          victoriasJugador1
+          victoriasJugador2
+          empates
+        }
+      }
     }
   }
 `;
@@ -93,6 +141,15 @@ export const GET_INFO_TORNEO = gql`
       temporada {
         _id
         nombre
+        historialPartidosEntreSi {
+          data {
+            jugador1
+            jugador2
+            victoriasJugador1
+            victoriasJugador2
+            empates
+          }
+        }
       }
       equipoMasa
       equipoChaca

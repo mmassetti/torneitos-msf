@@ -135,8 +135,8 @@ export default function TorneoGanador({ torneoData }) {
 
       await Promise.all(enfrentamientosUpdate);
 
-      //Update tablas
       let estadisticasTablasUpdate = [];
+
       // eslint-disable-next-line no-unused-expressions
       torneoData?.tablas.data.forEach((tabla) => {
         estadisticasTablasUpdate.push(
@@ -149,7 +149,7 @@ export default function TorneoGanador({ torneoData }) {
             gf: null,
             gc: null,
             puntos: null,
-            digGoles: null,
+            difGoles: null,
           })
         );
       });

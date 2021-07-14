@@ -13,7 +13,7 @@ import {
 import useSWR from "swr";
 import { GET_INFO_TORNEO } from "../graphql/queries";
 
-export default function Torneo({ onUpdateTorneo, id }) {
+export default function Torneo({ id }) {
   const fetcher = async (query) => await graphQLClient.request(query, { id });
   const { data, loading, error, mutate } = useSWR(
     id ? [GET_INFO_TORNEO, id] : null,

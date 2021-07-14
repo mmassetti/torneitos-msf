@@ -24,10 +24,6 @@ function TorneosList({ nombre }) {
 
   if (data) {
     let torneos = data.temporadaByName.torneos.data;
-    console.log(
-      "🚀 ~ file: TorneosList.js ~ line 27 ~ TorneosList ~ torneos",
-      torneos
-    );
 
     if (torneos.length > 0) {
       return (
