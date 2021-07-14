@@ -208,6 +208,20 @@ export default function Torneo({ onUpdateTorneo, id }) {
       });
 
       localStorage.removeItem("golesOtroJugador");
+
+      //Actualizo Historial entre jugadores
+      // let temporadaId = data?.findTorneoByID.temporada._id
+      // await graphQLClient.request(UPDATE_ESTADISTICA_TABLA, {
+      //   id: idToEditOtroJugador,
+
+      // });
+      onUpdateTorneo(
+        nombreJugadorActual,
+        nombreOtroJugador,
+        pgJugadorActual,
+        pgOtroJugador,
+        empate
+      );
     } else {
       //Estoy poniendo los goles del primre jugador, tengo que guardarlos para despues cuando ponga los del segundo
       localStorage.setItem(
