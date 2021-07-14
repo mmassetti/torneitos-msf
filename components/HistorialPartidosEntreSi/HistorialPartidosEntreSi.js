@@ -240,24 +240,24 @@ export default function HistorialPartidosEntreSi({ arrayTorneos }) {
 
   if (arrayTorneos && arrayTorneos.length > 0) {
     return (
-      <div className="flex">
-        <div>
-          <HistorialPartidosEntreSiTable
-            columns={columnsPartidosEntreSi}
-            data={partidosEntreSi}
-            title="Historial partidos entre si"
-          />
-          ;
+      <>
+        <div className="flex">
+          <div>
+            <HistorialPartidosEntreSiTable
+              columns={columnsPartidosEntreSi}
+              data={partidosEntreSi}
+              title="Historial partidos entre si"
+            />
+          </div>
+          <div>
+            <HistorialPartidosEntreSiTable
+              columns={columnsGolesEntreSi}
+              data={golesEntreSi}
+              title="Historial goles"
+            />
+          </div>
         </div>
-        <div>
-          <HistorialPartidosEntreSiTable
-            columns={columnsGolesEntreSi}
-            data={golesEntreSi}
-            title="Historial goles"
-          />
-          ;
-        </div>
-      </div>
+      </>
     );
   } else {
     return (

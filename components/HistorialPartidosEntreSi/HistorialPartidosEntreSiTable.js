@@ -9,8 +9,171 @@ function HistorialPartidosEntreSiTable({ columns, data, title }) {
       data,
     });
 
+  let content = (player1, player2, dif, goles) => {
+    return (
+      <p className="font-semibold">
+        {player1} le lleva{" "}
+        <span className="text-green-500 font-bold">{dif}</span>{" "}
+        {goles ? goles : "partidos"} a {player2}
+      </p>
+    );
+  };
+
+  const difChacaMasa = () => {
+    if (data && title === "Historial partidos entre si") {
+      //Chaca vs Masa
+      if (data[0] && data[0].victoriasJugador1 > data[0].victoriasJugador2) {
+        return (
+          <div>
+            {content(
+              "Masa",
+              "Chaca",
+              data[0].victoriasJugador1 - data[0].victoriasJugador2
+            )}
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            {content(
+              "Chaca",
+              "Masa",
+              data[0].victoriasJugador2 - data[0].victoriasJugador1
+            )}
+          </div>
+        );
+      }
+    } else {
+      if (data[0] && data[0].golesJugador1 > data[0].golesJugador2) {
+        return (
+          <div>
+            {content(
+              "Masa",
+              "Chaca",
+              data[0].golesJugador1 - data[0].golesJugador2,
+              "goles"
+            )}
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            {content(
+              "Chaca",
+              "Masa",
+              data[0].golesJugador2 - data[0].golesJugador1,
+              "goles"
+            )}
+          </div>
+        );
+      }
+    }
+  };
+
+  const difChacaSeba = () => {
+    if (data && title === "Historial partidos entre si") {
+      //Chaca vs Masa
+      if (data[1] && data[1].victoriasJugador1 > data[1].victoriasJugador2) {
+        return (
+          <div>
+            {content(
+              "Seba",
+              "Chaca",
+              data[1].victoriasJugador1 - data[1].victoriasJugador2
+            )}
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            {content(
+              "Chaca",
+              "Seba",
+              data[1].victoriasJugador2 - data[1].victoriasJugador1
+            )}
+          </div>
+        );
+      }
+    } else {
+      if (data[1] && data[1].golesJugador1 > data[1].golesJugador2) {
+        return (
+          <div>
+            {content(
+              "Seba",
+              "Chaca",
+              data[1].golesJugador1 - data[1].golesJugador2,
+              "goles"
+            )}
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            {content(
+              "Chaca",
+              "Seba",
+              data[1].golesJugador2 - data[1].golesJugador1,
+              "goles"
+            )}
+          </div>
+        );
+      }
+    }
+  };
+
+  const difMasaSeba = () => {
+    if (data && title === "Historial partidos entre si") {
+      //Chaca vs Masa
+      if (data[2] && data[2].victoriasJugador1 > data[2].victoriasJugador2) {
+        return (
+          <div>
+            {content(
+              "Masa",
+              "Seba",
+              data[2].victoriasJugador1 - data[2].victoriasJugador2
+            )}
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            {content(
+              "Seba",
+              "Masa",
+              data[2].victoriasJugador2 - data[2].victoriasJugador1
+            )}
+          </div>
+        );
+      }
+    } else {
+      if (data[2] && data[2].golesJugador1 > data[2].golesJugador2) {
+        return (
+          <div>
+            {content(
+              "Masa",
+              "Seba",
+              data[2].golesJugador1 - data[2].golesJugador2,
+              "goles"
+            )}
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            {content(
+              "Seba",
+              "Masa",
+              data[2].golesJugador2 - data[2].golesJugador1,
+              "goles"
+            )}
+          </div>
+        );
+      }
+    }
+  };
+
   return (
-    <div className="mt-16 max-w-full h-500-px m-auto ml-32">
+    <div className="mt-16 max-w-full  m-auto ml-32">
       <h1 className="text-center text-2xl font-semibold mb-2">{title}</h1>
       <table
         {...getTableProps()}
@@ -52,6 +215,11 @@ function HistorialPartidosEntreSiTable({ columns, data, title }) {
           })}
         </tbody>
       </table>
+      <div className="flex flex-col text-center align-middle justify-center mt-10 mb-24">
+        <div className="mb-2">{difChacaMasa()}</div>
+        <div className="mb-2">{difChacaSeba()}</div>
+        <div className="mb-2">{difMasaSeba()}</div>
+      </div>
     </div>
   );
 }
