@@ -11,7 +11,7 @@ export default function HistorialPartidosEntreSi({ historialData }) {
         accessor: "jugador1",
       },
       {
-        Header: "Victorias 1",
+        Header: "Victorias",
         accessor: "victoriasJugador1",
       },
       {
@@ -19,7 +19,7 @@ export default function HistorialPartidosEntreSi({ historialData }) {
         accessor: "empates",
       },
       {
-        Header: "Victorias 2",
+        Header: "Victorias",
         accessor: "victoriasJugador2",
       },
       {

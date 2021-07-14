@@ -81,6 +81,16 @@ export const GET_TORNEOS_PARA_TEMPORADA = gql`
           }
         }
       }
+      historialPartidosEntreSi {
+        data {
+          _id
+          jugador1
+          jugador2
+          victoriasJugador1
+          victoriasJugador2
+          empates
+        }
+      }
     }
   }
 `;
@@ -93,6 +103,15 @@ export const GET_INFO_TORNEO = gql`
       temporada {
         _id
         nombre
+        historialPartidosEntreSi {
+          data {
+            jugador1
+            jugador2
+            victoriasJugador1
+            victoriasJugador2
+            empates
+          }
+        }
       }
       equipoMasa
       equipoChaca

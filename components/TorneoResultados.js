@@ -130,7 +130,6 @@ export default function TorneoResultados({ torneoData, onUpdate }) {
       data={data}
       updateMyData={updateMyData}
       skipPageReset={skipPageReset}
-      //colores
     />
   );
 }

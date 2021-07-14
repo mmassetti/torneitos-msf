@@ -5,6 +5,7 @@ import {
   RESET_ENFRENTAMIENTO,
   RESET_ESTADISTICA_TABLA,
   UPDATE_TORNEO,
+  UPDATE_HISTORIAL_PARTIDOS_ENTRE_SI,
 } from "../graphql/mutations";
 import useSound from "use-sound";
 
@@ -16,6 +17,22 @@ export default function TorneoGanador({ torneoData }) {
   const [torneoTerminado, setTorneoTerminado] = useState(false);
   const [yaPuedeHaberCampeon, setYaPuedeHaberCampeon] = useState(false);
   const [play] = useSound(daleCampeon, { volume: 0.25 });
+
+  let pgRestarChaca = 0;
+  let pgRestarMasa = 0;
+  let pgRestarSeba = 0;
+  let peRestarChaca = 0;
+  let peRestarMasa = 0;
+  let peRestarSeba = 0;
+  let ppRestarChaca = 0;
+  let ppRestarMasa = 0;
+  let ppRestarSeba = 0;
+  let gcRestarChaca = 0;
+  let gcRestarMasa = 0;
+  let gcRestarSeba = 0;
+  let gfRestarChaca = 0;
+  let gfRestarMasa = 0;
+  let gfRestarSeba = 0;
 
   useEffect(() => {
     setTablasArray(torneoData?.tablas.data);
@@ -116,29 +133,97 @@ export default function TorneoGanador({ torneoData }) {
     }
   };
 
+  async function restarHistorialJugadores() {
+    let historialArray = torneoData?.temporada.historialPartidosEntreSi.data;
+    // console.log(
+    //   "🚀 ~ file: TorneoGanador.js ~ line 138 ~ restarHistorialJugadores ~ historialArray ",
+    //   historialArray
+    // );
+
+    //Resto los goles necesarios historial Chaca-Masa
+    // historialArray.map(async (historial) => {
+    //   if (
+    //     (historial.jugador1 === jugador1 && historial.jugador2 === jugador2) ||
+    //     (historial.jugador1 === jugador2 && historial.jugador2 === jugador1)
+    //   ) {
+    //     let finalPgJugador1 =
+    //       historial.jugador1 === jugador1 ? pgJugador1 : pgJugador2;
+    //     let finalPgJugador2 =
+    //       historial.jugador2 === jugador2 ? pgJugador2 : pgJugador1;
+    //     let finalVictoriasJugador1 =
+    //       historial.victoriasJugador1 + finalPgJugador1;
+    //     let finalVictoriasJugador2 =
+    //       historial.victoriasJugador2 + finalPgJugador2;
+    //     let finalEmpates = historial.empates + empate;
+
+    //     await graphQLClient.request(UPDATE_HISTORIAL_PARTIDOS_ENTRE_SI, {
+    //       id: historial._id,
+    //       victoriasJugador1: finalVictoriasJugador1,
+    //       victoriasJugador2: finalVictoriasJugador2,
+    //       empates: finalEmpates,
+    //     });
+    //   }
+    // });
+  }
+
   const resetTorneo = async () => {
     try {
       //Update enfrentamientos
       let enfrentamientosUpdate = [];
       // eslint-disable-next-line no-unused-expressions
-      torneoData?.resultados.data.forEach((resultado) => {
-        enfrentamientosUpdate.push(
-          graphQLClient.request(RESET_ENFRENTAMIENTO, {
-            id: resultado._id,
-            golesJugador1: null,
-            golesJugador2: null,
-            anotadosGolesJugador1: false,
-            anotadosGolesJugador2: false,
-          })
-        );
-      });
+      // torneoData?.resultados.data.forEach((resultado) => {
+      //   console.log(
+      //     "🚀 ~ file: TorneoGanador.js ~ line 175 ~ torneoData?.resultados.data.forEach ~ resultado",
+      //     resultado
+      //   );
+      //   enfrentamientosUpdate.push(
+      //     graphQLClient.request(RESET_ENFRENTAMIENTO, {
+      //       id: resultado._id,
+      //       golesJugador1: null,
+      //       golesJugador2: null,
+      //       anotadosGolesJugador1: false,
+      //       anotadosGolesJugador2: false,
+      //     })
+      //   );
+
+      //   //Calculo cuantos partidos y goles tengo que restarle a cada uno para el historial
+      //   if (
+      //     (resultado.jugador1 === "Masa" && resultado.jugador2 === "Seba") ||
+      //     (resultado.jugador1 === "Seba" && resultado.jugador2 === "Masa")
+      //   ) {
+      //     if (resultado.jugador1 === "Masa") {
+
+      //     }
+      //   }
+
+      // });
 
       await Promise.all(enfrentamientosUpdate);
 
-      //Update tablas
       let estadisticasTablasUpdate = [];
+
       // eslint-disable-next-line no-unused-expressions
       torneoData?.tablas.data.forEach((tabla) => {
+        // if (tabla.jugador === "Chaca") {
+        //   pgRestarChaca = tabla.pg;
+        //   peRestarChaca = tabla.pe;
+        //   ppRestarChaca = tabla.pp;
+        //   gfRestarChaca = tabla.gf;
+        //   gcRestarChaca = tabla.gc;
+        // } else if (tabla.jugador === "Masa") {
+        //   pgRestarMasa = tabla.pg;
+        //   peRestarMasa = tabla.pe;
+        //   ppRestarMasa = tabla.pp;
+        //   gfRestarMasa = tabla.gf;
+        //   gcRestarMasa = tabla.gc;
+        // } else if (tabla.jugador === "Seba") {
+        //   pgRestarSeba = tabla.pg;
+        //   peRestarSeba = tabla.pe;
+        //   ppRestarSeba = tabla.pp;
+        //   gfRestarSeba = tabla.gf;
+        //   gcRestarSeba = tabla.gc;
+        // }
+
         estadisticasTablasUpdate.push(
           graphQLClient.request(RESET_ESTADISTICA_TABLA, {
             id: tabla._id,
@@ -149,12 +234,16 @@ export default function TorneoGanador({ torneoData }) {
             gf: null,
             gc: null,
             puntos: null,
-            digGoles: null,
+            difGoles: null,
           })
         );
       });
 
       await Promise.all(estadisticasTablasUpdate);
+
+      //Update HistorialPartidosEntreSi
+      //TODO: Cuando se resetea un torneo tengo que restar los goles correspondientes en el historial de partidos entre si
+      restarHistorialJugadores();
     } catch (error) {
       console.log("Error al resetear: ", error.message);
       Swal.fire(

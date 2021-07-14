@@ -249,3 +249,25 @@ export const CREATE_HISTORIAL_PARTIDOS_ENTRE_SI = gql`
     }
   }
 `;
+
+//TODO: Cuando se resetea un torneo tengo que restar los goles correspondientes en el historial de partidos entre si
+
+export const UPDATE_HISTORIAL_PARTIDOS_ENTRE_SI = gql`
+  mutation UpdateHistorialPartidosEntreSi(
+    $id: ID!
+    $victoriasJugador1: Int!
+    $victoriasJugador2: Int!
+    $empates: Int!
+  ) {
+    updateHistorialPartidosEntreSi(
+      id: $id
+      data: {
+        victoriasJugador1: $victoriasJugador1
+        victoriasJugador2: $victoriasJugador2
+        empates: $empates
+      }
+    ) {
+      _id
+    }
+  }
+`;
