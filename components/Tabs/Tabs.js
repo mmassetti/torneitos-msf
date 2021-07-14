@@ -72,9 +72,7 @@ const Tabs = ({ mode }) => {
                       >
                         {mode === "estadisticas" ? (
                           <HistorialPartidosEntreSi
-                            historialData={
-                              temporada.historialPartidosEntreSi.data
-                            }
+                            arrayTorneos={temporada.torneos.data}
                           />
                         ) : (
                           <TorneosList nombre={temporada.nombre} />

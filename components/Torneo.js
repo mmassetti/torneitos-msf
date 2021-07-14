@@ -13,7 +13,7 @@ import {
 import useSWR from "swr";
 import { GET_INFO_TORNEO } from "../graphql/queries";
 
-export default function Torneo({ onUpdateTorneo, id }) {
+export default function Torneo({ id }) {
   const fetcher = async (query) => await graphQLClient.request(query, { id });
   const { data, loading, error, mutate } = useSWR(
     id ? [GET_INFO_TORNEO, id] : null,
@@ -208,20 +208,6 @@ export default function Torneo({ onUpdateTorneo, id }) {
       });
 
       localStorage.removeItem("golesOtroJugador");
-
-      //Actualizo Historial entre jugadores
-      // let temporadaId = data?.findTorneoByID.temporada._id
-      // await graphQLClient.request(UPDATE_ESTADISTICA_TABLA, {
-      //   id: idToEditOtroJugador,
-
-      // });
-      onUpdateTorneo(
-        nombreJugadorActual,
-        nombreOtroJugador,
-        pgJugadorActual,
-        pgOtroJugador,
-        empate
-      );
     } else {
       //Estoy poniendo los goles del primre jugador, tengo que guardarlos para despues cuando ponga los del segundo
       localStorage.setItem(

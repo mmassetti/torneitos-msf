@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useTable } from "react-table";
 
 // Be sure to pass our updateMyData and the skipPageReset option
-function HistorialPartidosEntreSiTable({ columns, data }) {
+function HistorialPartidosEntreSiTable({ columns, data, title }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns,
@@ -11,6 +11,7 @@ function HistorialPartidosEntreSiTable({ columns, data }) {
 
   return (
     <div className="mt-16 max-w-full h-500-px m-auto ml-32">
+      <h1 className="text-center text-2xl font-semibold mb-2">{title}</h1>
       <table
         {...getTableProps()}
         className="flex-4 items-center bg-transparent border-collapse"
