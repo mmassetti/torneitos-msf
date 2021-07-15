@@ -10,14 +10,23 @@ function HistorialPartidosEntreSiTable({ columns, data, title, global }) {
     });
 
   let content = (player1, player2, dif, goles) => {
-    return (
-      <p className="font-semibold">
-        {player1} le lleva{" "}
-        <span className="text-green-500 font-bold">{dif}</span>{" "}
-        {goles ? goles : "partidos"} a {player2}{" "}
-        {global ? "en la tabla histórica" : "en esta temporada"}
-      </p>
-    );
+    if (dif === 0) {
+      return (
+        <p className="font-semibold">
+          {player1} y {player2} están igualados{" "}
+          {global ? "en la tabla histórica" : "en esta temporada"}
+        </p>
+      );
+    } else {
+      return (
+        <p className="font-semibold">
+          {player1} le lleva{" "}
+          <span className="text-green-500 font-bold">{dif}</span>{" "}
+          {goles ? goles : "partidos"} a {player2}{" "}
+          {global ? "en la tabla histórica" : "en esta temporada"}
+        </p>
+      );
+    }
   };
 
   const difChacaMasa = () => {

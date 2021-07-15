@@ -86,14 +86,14 @@ function TorneosList({ nombre }) {
     if (torneos.length > 0) {
       return (
         <>
-          {torneos.length > 1 ? (
+          {torneos.length > 0 ? (
             <div className="flex  flex-col justify-center mt-4 mb-24">
               <h1 className="text-3xl font-semibold text-center ">
-                Se jugaron{" "}
+                Se {torneos.length === 1 ? "jugó" : "jugaron"}{" "}
                 <span className="text-blue-600 font-semibold">
                   {torneos.length}
                 </span>{" "}
-                torneos en {nombre}
+                {torneos.length === 1 ? "torneo" : "torneos"} en {nombre}
               </h1>
 
               <h2 className="text-center text-2xl mt-2">
