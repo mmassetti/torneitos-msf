@@ -2903,6 +2903,11 @@ video {
   color: rgba(72, 187, 120, var(--text-opacity));
 }
 
+.text-green-600 {
+  --tw-text-opacity: 1;
+  color: rgba(5, 150, 105, var(--tw-text-opacity));
+}
+
 .text-teal-500 {
   --text-opacity: 1;
   color: #38b2ac;
@@ -2936,6 +2941,11 @@ video {
 .text-yellow-400 {
   --text-opacity: 1;
   color: #fbbf24;
+}
+
+.text-yellow-500 {
+  --tw-text-opacity: 1;
+  color: rgba(245, 158, 11, var(--tw-text-opacity));
 }
 
 .hover\:text-gray-400:hover {

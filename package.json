@@ -34,6 +34,7 @@
     "sweetalert2": "^10.15.7",
     "swr": "^0.3.8",
     "tailwindcss": "1.8.10",
+    "tailwindcss-classnames": "^2.2.1",
     "use-sound": "^2.0.1",
     "webpack": "4.44.2"
   },

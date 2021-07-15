@@ -1,58 +1,15 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import HistorialPartidosEntreSiTable from "./HistorialPartidosEntreSiTable";
+import { columnsPartidosEntreSi, columnsGolesEntreSi } from "./columns";
 
-export default function HistorialPartidosEntreSi({ arrayTorneos }) {
+export default function HistorialPartidosEntreSi({
+  arrayTorneos,
+  isGlobal,
+  partidosEntreSiGlobal,
+  golesEntreSiGlobal,
+}) {
   const [partidosEntreSi, setPartidosEntreSi] = useState([]);
   const [golesEntreSi, setGolesEntreSi] = useState([]);
-
-  const columnsPartidosEntreSi = useMemo(
-    () => [
-      {
-        Header: "Jugador 1",
-        accessor: "jugador1",
-      },
-      {
-        Header: "Victorias",
-        accessor: "victoriasJugador1",
-      },
-      {
-        Header: "Empates",
-        accessor: "empates",
-      },
-      {
-        Header: "Victorias",
-        accessor: "victoriasJugador2",
-      },
-      {
-        Header: "Jugador 2",
-        accessor: "jugador2",
-      },
-    ],
-    []
-  );
-
-  const columnsGolesEntreSi = useMemo(
-    () => [
-      {
-        Header: "Jugador 1",
-        accessor: "jugador1",
-      },
-      {
-        Header: "Goles",
-        accessor: "golesJugador1",
-      },
-      {
-        Header: "Goles",
-        accessor: "golesJugador2",
-      },
-
-      {
-        Header: "Jugador 2",
-        accessor: "jugador2",
-      },
-    ],
-    []
-  );
 
   useEffect(() => {
     //I know this can be done in fewer lines of code and much better.
@@ -81,7 +38,8 @@ export default function HistorialPartidosEntreSi({ arrayTorneos }) {
       golesSeba: 0,
     };
 
-    arrayTorneos.forEach((torneo) => {
+    // eslint-disable-next-line no-unused-expressions
+    arrayTorneos?.forEach((torneo) => {
       // eslint-disable-next-line no-unused-expressions
       torneo.resultados?.data?.map((resultado) => {
         if (
@@ -238,32 +196,55 @@ export default function HistorialPartidosEntreSi({ arrayTorneos }) {
     setGolesEntreSi(golesArray);
   }, [arrayTorneos]);
 
-  if (arrayTorneos && arrayTorneos.length > 0) {
+  if (isGlobal) {
     return (
-      <>
-        <div className="flex">
-          <div>
-            <HistorialPartidosEntreSiTable
-              columns={columnsPartidosEntreSi}
-              data={partidosEntreSi}
-              title="Historial partidos entre si"
-            />
-          </div>
-          <div>
-            <HistorialPartidosEntreSiTable
-              columns={columnsGolesEntreSi}
-              data={golesEntreSi}
-              title="Historial goles"
-            />
-          </div>
+      <div className="flex">
+        <div>
+          <HistorialPartidosEntreSiTable
+            columns={columnsPartidosEntreSi}
+            data={partidosEntreSiGlobal}
+            title="Historial partidos entre si"
+            global={true}
+          />
         </div>
-      </>
+        <div>
+          <HistorialPartidosEntreSiTable
+            columns={columnsGolesEntreSi}
+            data={golesEntreSiGlobal}
+            title="Historial goles"
+            global={true}
+          />
+        </div>
+      </div>
     );
   } else {
-    return (
-      <h1 className="justify-center text-center text-2xl p-4 m-4 h-500-px">
-        Todavía no hay estadísticas para esta temporada
-      </h1>
-    );
+    if (arrayTorneos && arrayTorneos.length > 0) {
+      return (
+        <>
+          <div className="flex">
+            <div>
+              <HistorialPartidosEntreSiTable
+                columns={columnsPartidosEntreSi}
+                data={partidosEntreSi}
+                title="Historial partidos entre si"
+              />
+            </div>
+            <div>
+              <HistorialPartidosEntreSiTable
+                columns={columnsGolesEntreSi}
+                data={golesEntreSi}
+                title="Historial goles"
+              />
+            </div>
+          </div>
+        </>
+      );
+    } else {
+      return (
+        <h1 className="justify-center text-center text-2xl p-4 m-4 h-500-px">
+          Todavía no hay estadísticas para esta temporada
+        </h1>
+      );
+    }
   }
 }

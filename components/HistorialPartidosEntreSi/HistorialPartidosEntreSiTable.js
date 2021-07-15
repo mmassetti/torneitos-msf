@@ -2,7 +2,7 @@ import React from "react";
 import { useTable } from "react-table";
 
 // Be sure to pass our updateMyData and the skipPageReset option
-function HistorialPartidosEntreSiTable({ columns, data, title }) {
+function HistorialPartidosEntreSiTable({ columns, data, title, global }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns,
@@ -14,7 +14,8 @@ function HistorialPartidosEntreSiTable({ columns, data, title }) {
       <p className="font-semibold">
         {player1} le lleva{" "}
         <span className="text-green-500 font-bold">{dif}</span>{" "}
-        {goles ? goles : "partidos"} a {player2}
+        {goles ? goles : "partidos"} a {player2}{" "}
+        {global ? "en la tabla histórica" : "en esta temporada"}
       </p>
     );
   };
