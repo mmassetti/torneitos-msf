@@ -18,7 +18,7 @@ export default function Index() {
               <div className="mt-12">
                 <Link href="/torneos">
                   <a
-                    href="#pablo"
+                    href="/torneos"
                     className={
                       "get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-gray-600 active:bg-gray-700 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                     }
@@ -29,7 +29,7 @@ export default function Index() {
 
                 <Link href="/estadisticas">
                   <a
-                    href="#pablo"
+                    href="/estadisticaso"
                     className={
                       "github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-gray-800 active:bg-gray-700 uppercase text-sm shadow hover:shadow-lg"
                     }

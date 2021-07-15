@@ -13,7 +13,7 @@ export default function Navbar(props) {
           <div className="items-center flex">
             <Link href="/">
               <a
-                href="#pablo"
+                href="/"
                 className="hover:text-yellow-400 text-orange-500 px-3 py-4 lg:py-2 flex items-center text-md uppercase font-bold"
               >
                 <div className="flex-shrink-0">
@@ -37,7 +37,7 @@ export default function Navbar(props) {
             <ul className="flex flex-col lg:flex-row list-none mr-auto">
               <Link href="/torneos">
                 <a
-                  href="#pablo"
+                  href="torneos"
                   className="hover:text-yellow-400 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                 >
                   <i
@@ -48,7 +48,7 @@ export default function Navbar(props) {
               </Link>
               <Link href="/estadisticas">
                 <a
-                  href="#pablo"
+                  href="/estadisticas"
                   className="hover:text-green-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                 >
                   <i
