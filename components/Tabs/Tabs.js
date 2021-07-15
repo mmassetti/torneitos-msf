@@ -42,6 +42,7 @@ const Tabs = ({ mode }) => {
         });
       }
     }
+
     setTabsArray(tabsArray);
 
     let historialChacaMasa = {

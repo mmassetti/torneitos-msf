@@ -183,7 +183,7 @@ function HistorialPartidosEntreSiTable({ columns, data, title, global }) {
   };
 
   return (
-    <div className="mt-16 max-w-full  m-auto ml-32">
+    <div className="mt-16 max-w-full  m-auto ">
       <h1 className="text-center text-2xl font-semibold mb-2">{title}</h1>
       <table
         {...getTableProps()}
@@ -225,7 +225,7 @@ function HistorialPartidosEntreSiTable({ columns, data, title, global }) {
           })}
         </tbody>
       </table>
-      <div className="flex flex-col text-center align-middle justify-center mt-10 mb-24">
+      <div className="flex flex-col text-center align-middle justify-center mt-10 mb-8">
         <div className="mb-2">{difChacaMasa()}</div>
         <div className="mb-2">{difChacaSeba()}</div>
         <div className="mb-2">{difMasaSeba()}</div>

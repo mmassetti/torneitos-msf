@@ -40,3 +40,42 @@ export const columnsGolesEntreSi = [
     accessor: "jugador2",
   },
 ];
+
+export const columnsTorneosYPartidos = [
+  {
+    Header: "Jugador",
+    accessor: "jugador",
+  },
+  {
+    Header: "PG",
+    accessor: "pg",
+  },
+  {
+    Header: "PE",
+    accessor: "pe",
+  },
+  {
+    Header: "PP",
+    accessor: "pp",
+  },
+  {
+    Header: "PT",
+    accessor: "pt",
+  },
+  {
+    Header: "Puntos totales",
+    accessor: "puntosTotales",
+  },
+  {
+    Header: "GF",
+    accessor: "gf",
+  },
+  {
+    Header: "GC",
+    accessor: "gc",
+  },
+  {
+    Header: "Dif",
+    accessor: "dif",
+  },
+];
